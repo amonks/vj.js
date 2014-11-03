@@ -1,0 +1,1 @@
+define(["app/vjjs","jquery"],function(e,t){function n(n,r){var i='<button id="load-'+n+'">'+n+"</button>";t("#scene-list").append(t(i)),t("#load-"+n).on("click",function(){e.loadScene(n)})}var r=e.getScenes();for(var i in r)n(r[i])});

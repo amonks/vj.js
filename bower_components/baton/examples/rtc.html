@@ -1,0 +1,247 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <title>WebMIDI over WebRTC demo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Language" content="en-us">
+
+</head>
+
+<body>
+    <div id="info">
+        <p>This example uses WebRTC to send MIDI data between browsers on the internet. It uses the WebRTC standard for in-browser peer-to-peer networking.</p>
+        <p>Once you establish a connection, any midi received to this browser's inputs will be sent over the network, and out of the other browser's outputs.</p>
+        <p>Use case: have your keyboard-virtuoso friend visit this page and plug in a midi controller. On your end, visit this page also, plug in a midi controlled synthesizer, and listen as their keystrokes are sent over the network and to your synth.</p>
+        <p>If client-mode is enabled, this page will take any midi it receives over the internet, and send it to your local midi buses.</p>
+        <p>If server-mode is enabled, this page will take any midi it receives from local devices, and send it out over the internet.</p>
+        <p>WebMIDI requires a recent version of Chrome with the WebMIDI flag enabled. Visit chrome://flags/#enable-web-midi, click 'enable' then *relaunch chrome*.</p>
+        <p>Because of a bug, Chrome can only connect to MIDI devices that were open when it was launched. If you plug in a controller, open Max/MSP or a DAW, or whatever, you need to *relaunch chrome*. Not just the tab you were in. Chrome itself. Don't say I didn't warn you.</p>
+    </div>
+    <div id="chat">
+        <p>
+            <a id="toggle-client" href="#">Enable Client</a>
+            <a id="toggle-server" href="#">Enable Server</a>
+        </p>
+        <p>
+            Your PeerJS ID is
+            <span id="pid"></span>
+        </p>
+        <p>
+            Connect to a peer:
+            <input type="text" id="rid" placeholder="Someone else's id">
+            <input class="button" type="button" value="Connect" id="connect">
+        </p>
+        <p>
+            <button id="close">Close selected connections</button>
+        </p>
+        <p id="connections">
+            <span class="filler">You have not yet made any connections.</span>
+        </p>
+        <div class="clear"></div>
+    </div>
+</body>
+
+<script src="../baton.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="//cdn.peerjs.com/0.3/peer.js"></script>
+<script>
+
+// handle client and server modes
+
+// boolean for server-enabled state
+var bEnableServer = false;
+// button to toggle boolean
+$('#toggle-server').on('click', function(){
+    if (bEnableServer === true) {
+        $('#toggle-server').text('Enable Server');
+        bEnableServer = false;
+    } else {
+        $('#toggle-server').text('Disable Server');
+        bEnableServer = true;
+    }
+});
+
+// boolean for client-enabled state
+var bEnableClient = false;
+// button to toggle boolean
+$('#toggle-client').on('click', function(){
+    if (bEnableClient === true) {
+        $('#toggle-client').text('Enable Client');
+        bEnableClient = false;
+    } else {
+        $('#toggle-client').text('Disable Client');
+        bEnableClient = true;
+    }
+});
+
+
+// instantiate peerjs connection
+var peer = new Peer({
+    key: 'yfzyrd6j61cnb3xr',
+
+    // Set highest debug level (log everything!).
+    debug: 3,
+
+    // Set a logging function:
+    logFunction: function() {
+        var copy = Array.prototype.slice.call(arguments).join(' ');
+        $('.log').append(copy + '<br>');
+    },
+});
+var connectedPeers = {};
+
+// Show this peer's ID.
+peer.on('open', function(id) {
+    $('#pid').text(id);
+});
+
+// Await connections from others
+peer.on('connection', connect);
+
+// Handle a connection object.
+function connect(c) {
+    // Handle a chat connection.
+    if (c.label === 'chat') {
+        var chatbox = $('<div></div>').addClass('connection').addClass('active').attr('id', c.peer);
+        var header = $('<h1></h1>').html('Chat with <strong>' + c.peer + '</strong>');
+        var messages = $('<div><em>Peer connected.</em></div>').addClass('messages');
+        chatbox.append(header);
+        chatbox.append(messages);
+
+        // Select connection handler.
+        chatbox.on('click', function() {
+            if ($(this).attr('class').indexOf('active') === -1) {
+                $(this).addClass('active');
+            } else {
+                $(this).removeClass('active');
+            }
+        });
+        $('.filler').hide();
+        $('#connections').append(chatbox);
+
+        // incoming midi-over-rtc handler
+        c.on('data', function(data) {
+            // only handle midi from webrtc if client mode is enabled
+            if (bEnableClient === true) {
+                // send midi out through each local bus
+                for (var o in baton.outputs()) {
+                    chatbox.append(data);
+                    console.log("sending", JSON.parse(data));
+                    baton.send(o, JSON.parse(data));
+                }
+            }
+        });
+        c.on('close', function() {
+            alert(c.peer + ' has left the chat.');
+            chatbox.remove();
+            if ($('.connection').length === 0) {
+                $('.filler').show();
+            }
+            delete connectedPeers[c.peer];
+        });
+    }
+}
+
+
+
+var baton = new Baton();
+baton.connect(function() {
+    for (var i in baton.inputs()) {
+        baton.listen(i);
+    }
+});
+baton.callback = function(msg) {
+    // only send input from local midi devices if server mode is enabled
+    if (bEnableServer === true) {
+        sendThing(msg);
+        console.log(msg);
+    }
+};
+
+function doNothing(e) {
+    e.preventDefault();
+    e.stopPropagation();
+}
+
+// Connect to a peer
+$('#connect').click(function() {
+    requestedPeer = $('#rid').val();
+    if (!connectedPeers[requestedPeer]) {
+        // Create 2 connections, one labelled chat and another labelled file.
+        var c = peer.connect(requestedPeer, {
+            label: 'chat',
+            serialization: 'none',
+            reliable: false,
+            metadata: {
+                message: 'hi i want to chat with you!'
+            }
+        });
+        c.on('open', function() {
+            connect(c);
+        });
+        c.on('error', function(err) {
+            alert(err);
+        });
+        var f = peer.connect(requestedPeer, {
+            label: 'file'
+        });
+        f.on('open', function() {
+            connect(f);
+        });
+        f.on('error', function(err) {
+            alert(err);
+        });
+    }
+    connectedPeers[requestedPeer] = 1;
+});
+
+// Close a connection.
+$('#close').click(function() {
+    eachActiveConnection(function(c) {
+        c.close();
+    });
+});
+
+// Send a chat message to all active connections.
+function sendThing(thing) {
+    // For each active connection, send the message.
+    var msg = thing;
+    eachActiveConnection(function(c, $c) {
+        if (c.label === 'chat') {
+            c.send(JSON.stringify(msg));
+            // $c.find('.messages').append('<div><span class="you">You: </span>' + msg + '</div>');
+        }
+    });
+}
+
+// Goes through each active peer and calls FN on its connections.
+function eachActiveConnection(fn) {
+    var actives = $('.active');
+    var checkedIds = {};
+    actives.each(function() {
+        var peerId = $(this).attr('id');
+
+        if (!checkedIds[peerId]) {
+            var conns = peer.connections[peerId];
+            for (var i = 0, ii = conns.length; i < ii; i += 1) {
+                var conn = conns[i];
+                fn(conn, $(this));
+            }
+        }
+
+        checkedIds[peerId] = 1;
+    });
+}
+
+
+// Make sure things clean up properly.
+
+window.onunload = window.onbeforeunload = function(e) {
+    if (!!peer && !peer.destroyed) {
+        peer.destroy();
+    }
+};
+</script>
+
+</html>

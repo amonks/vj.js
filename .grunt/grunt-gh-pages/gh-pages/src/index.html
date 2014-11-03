@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en"></html>
+<head>
+  <title>vj.js</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div id="bottom-right">
+    <button id="show-side-panel">Show/Hide Side Panel</button>
+  </div>
+  <div class="snap-drawers">
+    <div id="side-panel" class="snap-drawer snap-drawer-left">
+      <p>scenes</p>
+      <div id="scene-list"></div>
+      <p>params</p>
+      <div id="param-list"></div>
+    </div>
+    <div class="snap-drawer snap-drawer-right"></div>
+  </div>
+  <div id="snap-content" class="snap-content">
+    <div id="container"></div>
+    <div id="three-container"></div>
+  </div>
+</body>
+<script data-main="js/app" src="js/require.js"></script>

@@ -1,0 +1,17 @@
+doctype html
+html(lang='en')
+head
+  title vj.js
+  meta(charset='utf-8')
+  link(rel="stylesheet", href="/style.css")
+body
+  #bottom-right
+    button#show-side-panel Show/Hide Side Panel
+  .snap-drawers
+    #side-panel.snap-drawer.snap-drawer-left
+      include ./includes/side-panel.jade
+    .snap-drawer.snap-drawer-right
+  #snap-content.snap-content
+    #container
+    #three-container
+script(data-main='js/app' src='js/require.js')

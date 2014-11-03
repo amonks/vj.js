@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+<head>
+  <title>fft.js simple demo</title>
+</head>
+
+<body>
+<button id="fft-button">update</button>
+<div id="fft-display"></div>
+</body>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="/fft.min.js"></script>
+<script>
+var fftjs = new FFTJS();
+fftjs.init(32);
+$('button#fft-button').on('click', function() {
+    $('#fft-display').text(JSON.stringify(fftjs.fft()));
+});
+</script>
+</html>

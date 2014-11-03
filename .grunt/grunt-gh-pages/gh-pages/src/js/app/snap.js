@@ -1,0 +1,1 @@
+define(["vendor/snap","jquery"],function(e,t){var n=new e({element:document.getElementById("snap-content"),resistance:.8,tapToClose:"false",maxPosition:100,disable:"right",minPosition:-100});return t("#show-side-panel").on("click",function(){n.state().state==="left"?n.close():n.open("left")}),n});
