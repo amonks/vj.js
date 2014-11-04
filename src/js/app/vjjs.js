@@ -8,15 +8,6 @@ define(function () {
   ];
   var currentScene = null;
 
-  var params = [
-    { name: 'param0', value: 0 },
-    { name: 'param1', value: 0 },
-    { name: 'param2', value: 0 },
-    { name: 'param3', value: 0 },
-    { name: 'param4', value: 0 },
-    { name: 'param5', value: 0 }
-  ];
-
   VJJS.init = function() {
     require(['app/params']);
     require(['app/snap']);
@@ -30,10 +21,6 @@ define(function () {
 
   VJJS.getCurrentScene = function() {
     return currentScene;
-  };
-
-  VJJS.getParams = function() {
-    return params;
   };
 
   VJJS.loadScene = function(sceneName) {
