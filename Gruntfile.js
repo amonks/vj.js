@@ -185,7 +185,7 @@ module.exports = function(grunt) {
     'concat:css',
     'jade:index',
   ]);
-  grunt.registerTask('optimize', [
+  grunt.registerTask('dist', [
     'build',
     'requirejs:compile'
   ]);
