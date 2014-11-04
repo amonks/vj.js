@@ -6413,11 +6413,22 @@ html, body {
 .snapjs-expand-right .snap-drawer-right {
   width: 100%;
 }
-#bottom-right {
+html,
+body,
+.container {
+  overflow: hidden;
+}
+#top-right {
   position: absolute;
   z-index: 1000;
   right: 0;
-  bottom: 0;
+  top: 0;
+}
+#top-left {
+  position: absolute;
+  z-index: 1000;
+  left: 0;
+  top: 0;
 }
 #snap-content {
   background: #000;
@@ -6438,11 +6449,17 @@ html, body {
   bottom: 0;
   left: 0;
 }
-#side-panel {
+.side-panel {
   background: #111;
-  width: 100px;
+  width: 150px;
   color: #ccc;
+  overflow: scroll;
 }
-#side-panel button {
+.side-panel button,
+.side-panel input {
+  width: 100%;
   color: #000;
+}
+.control-group {
+  padding-bottom: 5px;
 }

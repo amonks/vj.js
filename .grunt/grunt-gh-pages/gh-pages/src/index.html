@@ -6,21 +6,25 @@
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <div id="bottom-right">
-    <button id="show-side-panel">Show/Hide Side Panel</button>
+  <div id="top-right">
+    <button id="show-param-panel">Show/Hide Params</button>
+  </div>
+  <div id="top-left">
+    <button id="show-scene-panel">Show/Hide Scenes</button>
   </div>
   <div class="snap-drawers">
-    <div id="side-panel" class="snap-drawer snap-drawer-left">
-      <p>scenes</p>
+    <div class="side-panel snap-drawer snap-drawer-left">
+      <h3>scenes</h3>
       <div id="scene-list"></div>
-      <p>params</p>
+    </div>
+    <div class="side-panel snap-drawer snap-drawer-right">
+      <h3>params</h3>
       <div id="param-list"></div>
     </div>
-    <div class="snap-drawer snap-drawer-right"></div>
   </div>
   <div id="snap-content" class="snap-content">
-    <div id="container"></div>
-    <div id="three-container"></div>
+    <div id="container" class="container"></div>
+    <div id="three-container" class="container"></div>
   </div>
 </body>
 <script data-main="js/app" src="js/require.js"></script>
