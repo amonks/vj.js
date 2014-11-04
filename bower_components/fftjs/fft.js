@@ -1,12 +1,14 @@
 var FFTJS = function() {
 
-    API = {};
+    var API = {};
 
     var ctx; //audio context
     var buf; //audio buffer
     var fft; //fft audio node
     var samples;
-    isSetup = false; //indicate if audio is set up yet
+    var isSetup = false; //indicate if audio is set up yet
+
+    API.mappings = [];
 
     API.setup = function() {
       return isSetup;

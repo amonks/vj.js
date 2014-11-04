@@ -5,13 +5,16 @@ head
   meta(charset='utf-8')
   link(rel="stylesheet", href="/style.css")
 body
-  #bottom-right
-    button#show-side-panel Show/Hide Side Panel
+  #top-right
+    button#show-param-panel Show/Hide Params
+  #top-left
+    button#show-scene-panel Show/Hide Scenes
   .snap-drawers
-    #side-panel.snap-drawer.snap-drawer-left
-      include ./includes/side-panel.jade
-    .snap-drawer.snap-drawer-right
+    .side-panel.snap-drawer.snap-drawer-left
+      include ./includes/scene-panel.jade
+    .side-panel.snap-drawer.snap-drawer-right
+      include ./includes/param-panel.jade
   #snap-content.snap-content
-    #container
-    #three-container
+    #container.container
+    #three-container.container
 script(data-main='js/app' src='js/require.js')

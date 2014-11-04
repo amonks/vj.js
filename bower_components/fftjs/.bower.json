@@ -1,6 +1,6 @@
 {
   "name": "fftjs",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "http://fftjs.monks.co",
   "authors": [
     "Andrew Monks <a@monks.co>"
@@ -21,14 +21,13 @@
     "index.html",
     "CNAME"
   ],
-  "_release": "0.0.1",
+  "_release": "0.0.2",
   "_resolution": {
     "type": "version",
-    "tag": "v0.0.1",
-    "commit": "fa004c848c86e52e33f31f83a6953d98ecca450e"
+    "tag": "v0.0.2",
+    "commit": "2b1360acae4473986bf334e76d1e90fe417c2d4a"
   },
   "_source": "git://github.com/amonks/fftjs.git",
   "_target": "~0.0.1",
-  "_originalSource": "fftjs",
-  "_direct": true
+  "_originalSource": "fftjs"
 }

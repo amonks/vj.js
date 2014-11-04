@@ -1,5 +1,5 @@
-define(['app/vjjs', 'vendor/three', 'app/renderer', 'app/camera', 'app/3dcontainer'],
-  function (VJJS, THREE, renderer, camera, container) {
+define(['app/params', 'vendor/three', 'app/renderer', 'app/camera', 'app/3dcontainer'],
+  function (Params, THREE, renderer, camera, container) {
 
     var API = {};
     var scene, rendering;
@@ -49,7 +49,7 @@ define(['app/vjjs', 'vendor/three', 'app/renderer', 'app/camera', 'app/3dcontain
 
         if (rendering === true) requestAnimationFrame( animate );
 
-        var params = VJJS.getParams();
+        var params = Params.getParams();
 
         for (var meshIndex in meshes) {
           meshes[meshIndex].scale.x = params[0].value / 127 + 0.1;

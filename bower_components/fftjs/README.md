@@ -1,4 +1,4 @@
-# fft.js *v0.0.1*
+# fft.js *v0.0.2*
 
 fft.js is a javascript library that makes it easy to analyze real-time audio input.
 
