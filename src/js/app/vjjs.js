@@ -18,9 +18,8 @@ define(function () {
   ];
 
   VJJS.init = function() {
-    snapper = require(['app/snap']);
-    baton = require(['app/baton']);
-    fft = require(['app/fft']);
+    require(['app/params']);
+    require(['app/snap']);
     require(['app/scene-controls']);
     require(['app/param-controls']);
   };
