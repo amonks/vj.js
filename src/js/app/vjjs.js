@@ -5,7 +5,8 @@ define( ['app/params'],
     var scenes = [
       'crate',
       'boxes',
-      'fft'
+      'fft',
+      'squares'
     ];
     var currentScene = null;
 

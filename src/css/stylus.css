@@ -18,7 +18,9 @@ body,
 #snap-content {
   background: #000;
 }
-#three-container {
+#three-container,
+#container,
+canvas {
   height: 100%;
   width: 100%;
   top: 0;
@@ -26,7 +28,9 @@ body,
   bottom: 0;
   left: 0;
 }
-#three-container #three-canvas {
+#three-container #three-canvas,
+#container #three-canvas,
+canvas #three-canvas {
   height: 100%;
   width: 100%;
   top: 0;

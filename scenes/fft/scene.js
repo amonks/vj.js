@@ -1,10 +1,11 @@
-define(['jquery', 'app/fft', 'vendor/processing'],
-  function($, FFTJS, processing) {
+define(['jquery', 'app/fft', 'vendor/processing', 'app/2dcontainer'],
+  function($, FFTJS, processing, container) {
     var processingInstance, drawerSketch;
     var API = {};
 
     API.init = function() {
-      $('#container').html($('<canvas id="processing-canvas">'));
+      container.show();
+      container.html($('<canvas id="processing-canvas">'));
 
       drawerSketch = function(processing) {
         var width = window.innerWidth;
@@ -36,6 +37,7 @@ define(['jquery', 'app/fft', 'vendor/processing'],
     };
 
     API.destroy = function() {
+      container.hide();
       $('#container').html('');
       processingInstance = null;
       drawerSketch = null;
