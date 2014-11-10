@@ -1,15 +1,15 @@
-define(['jquery', 'app/fft', 'vendor/processing', 'app/2dcontainer'],
-  function($, FFTJS, processing, container) {
+define(['jquery', 'app/fft', 'vendor/processing'],
+  function($, FFTJS, processing) {
     var processingInstance, drawerSketch;
     var API = {};
 
     API.init = function() {
-      container.show();
-      container.html($('<canvas id="processing-canvas">'));
+      $('#snap-content').append($('<canvas id="fft" class="container">'));
 
       drawerSketch = function(processing) {
         var width = window.innerWidth;
         var height = window.innerHeight;
+        console.log(width, height);
 
         processing.size(width, height);
 
@@ -19,10 +19,11 @@ define(['jquery', 'app/fft', 'vendor/processing', 'app/2dcontainer'],
         };
 
         processing.draw = function() {
-          processing.background(0);
+          processing.background(0, 0, 0, 0);
           var fft = fftjs.fft();
           var bands = fft.length;
           bandWidth = width / bands;
+          console.log(bandWidth);
           for (var band in fft) {
             var mappedHue = processing.map(fft[band], 0, 255, 180, 360);
             processing.fill(mappedHue, 100, 100);
@@ -33,14 +34,11 @@ define(['jquery', 'app/fft', 'vendor/processing', 'app/2dcontainer'],
       };
 
       // attach the sketch function to the canvas
-      processingInstance = new Processing(document.getElementById('processing-canvas'), drawerSketch);
+      processingInstance = new Processing(document.getElementById('fft'), drawerSketch);
     };
 
     API.destroy = function() {
-      container.hide();
-      $('#container').html('');
-      processingInstance = null;
-      drawerSketch = null;
+      $('#fft').remove();
     };
 
     return API;

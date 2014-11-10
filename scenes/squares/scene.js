@@ -1,16 +1,17 @@
-define(['jquery', 'app/fft', 'vendor/processing', 'app/params', 'app/2dcontainer'],
-  function($, FFTJS, processing, Params, container) {
+define(['jquery', 'app/fft', 'vendor/processing', 'app/params'],
+  function($, FFTJS, processing, Params) {
     var processingInstance, drawerSketch;
     var API = {};
 
     API.init = function() {
-      container.html($('<canvas id="processing-canvas">'));
-      container.show();
+      $('#snap-content').append('<canvas id="squares" class="container">');
 
       drawerSketch = function(processing) {
         var params;
-        var width = $('#container').width();
-        var height = $('#container').height();
+        var width = window.innerWidth;
+
+        var height = window.innerHeight;
+
         var halfWidth = width / 2;
         var halfHeight = height / 2;
 
@@ -112,7 +113,7 @@ define(['jquery', 'app/fft', 'vendor/processing', 'app/params', 'app/2dcontainer
 
         processing.draw = function() {
           params = Params.getParams();
-          processing.background(0,0,100);
+          processing.background(0,0,100, 0);
           for (var pony in ponies) {
             ponies[pony].update();
             ponies[pony].draw();
@@ -158,14 +159,11 @@ define(['jquery', 'app/fft', 'vendor/processing', 'app/params', 'app/2dcontainer
       };
 
       // attach the sketch function to the canvas
-      processingInstance = new Processing(document.getElementById('processing-canvas'), drawerSketch);
+      processingInstance = new Processing(document.getElementById('squares'), drawerSketch);
     };
 
     API.destroy = function() {
-      $('#container').html('');
-      $('#container').hide();
-      processingInstance = null;
-      drawerSketch = null;
+      $('#squares').remove();
     };
 
     return API;

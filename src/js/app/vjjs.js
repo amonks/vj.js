@@ -8,7 +8,7 @@ define( ['app/params'],
       'fft',
       'squares'
     ];
-    var currentScene = null;
+    var currentScenes = [];
 
     VJJS.init = function() {
       Params.init();
@@ -21,17 +21,24 @@ define( ['app/params'],
       return scenes;
     };
 
-    VJJS.getCurrentScene = function() {
-      return currentScene;
+    VJJS.getCurrentScenes = function() {
+      return currentScenes;
     };
 
     VJJS.loadScene = function(sceneName) {
-      if (currentScene) currentScene.destroy();
-
       require(['scenes/' + sceneName + '/scene'], function(scene) {
-        currentScene = scene;
-        currentScene.init();
+        currentScenes.push({name: sceneName, scene: scene});
+        scene.init();
       });
+    };
+
+    VJJS.destroyScene = function(sceneName) {
+      for (var s in currentScenes) {
+        var scene = currentScenes[s];
+        if (scene.name === sceneName) {
+          scene.scene.destroy();
+        }
+      }
     };
 
     return VJJS;

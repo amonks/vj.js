@@ -1,6 +1,6 @@
 define(['vendor/three', 'app/3dcontainer'],
   function(THREE, container) {
-    var renderer = new THREE.WebGLRenderer( { clearColor: 0x000000 } );
+    var renderer = new THREE.WebGLRenderer( { alpha: true } );
     renderer.sortObjects = false;
     renderer.autoClear = false;
     container.append( renderer.domElement );
