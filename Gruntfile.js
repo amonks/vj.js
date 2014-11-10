@@ -46,6 +46,10 @@ module.exports = function(grunt) {
             dest: 'build/js/require.js'
           },
           {
+            src: 'bower_components/jquery-ui-sortable/jquery-ui-sortable.js',
+            dest: 'build/js/vendor/jquery-ui-sortable.js'
+          },
+          {
             src: 'bower_components/processing/processing.js',
             dest: 'build/js/vendor/processing.js'
           },

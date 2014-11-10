@@ -34,12 +34,12 @@ define(['jquery', 'app/fft', 'vendor/processing', 'app/params'],
           };
         }
 
-        function Pony(position, velocity, rotVelocity) {
+        function Pony(position, velocity, rotVelocity, hue) {
           this.acceleration = new Vector(0,0.5);
           this.velocity = velocity;
           this.radius = 300;
           this.position = position;
-          this.hue = Math.random() * 360;
+          this.hue = hue;
           this.rotation = 0;
           this.rotVelocity = rotVelocity;
 
@@ -106,8 +106,7 @@ define(['jquery', 'app/fft', 'vendor/processing', 'app/params'],
         };
 
         newPony = function(position, velocity, rotVelocity, hue) {
-          var pony = new Pony(position, velocity, rotVelocity);
-          console.log(pony);
+          var pony = new Pony(position, velocity, rotVelocity, hue);
           ponies.push(pony);
         };
 
@@ -123,12 +122,14 @@ define(['jquery', 'app/fft', 'vendor/processing', 'app/params'],
               var velocity = new Vector((params[0].value / 127) * 10 - 5, (params[1].value / 127) * 10 - 5);
               var rotVelocity = (params[2].value / 127) * 10 - 5;
               var hue = (params[3].value / 127) * 360;
+              console.log(hue);
               newPony(new Vector(halfWidth, halfHeight), velocity, rotVelocity, hue);
             }
             if (bMouse === true) {
               var velocity = new Vector((params[0].value / 127) * 10 - 5, (params[1].value / 127) * 10 - 5);
               var rotVelocity = (params[2].value / 127) * 10 - 5;
               var hue = (params[3].value / 127) * 360;
+              console.log(hue);
               newPony(new Vector(processing.mouseX, processing.mouseY), velocity, rotVelocity, hue);
             }
           }
@@ -164,6 +165,10 @@ define(['jquery', 'app/fft', 'vendor/processing', 'app/params'],
 
     API.destroy = function() {
       $('#squares').remove();
+    };
+
+    API.reOrder = function(i) {
+      $('#squares').css('z-index', 100 - parseInt(i));
     };
 
     return API;

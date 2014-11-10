@@ -14,6 +14,10 @@ requirejs.config({
     'vendor/baton': {
       exports: 'Baton'
     },
+    'vendor/jquery-ui-sortable': {
+      exports: '$',
+      deps: ['jquery']
+    },
     'vendor/processing': {
       exports: 'processing'
     },

@@ -23,7 +23,6 @@ define(['jquery', 'app/fft', 'vendor/processing'],
           var fft = fftjs.fft();
           var bands = fft.length;
           bandWidth = width / bands;
-          console.log(bandWidth);
           for (var band in fft) {
             var mappedHue = processing.map(fft[band], 0, 255, 180, 360);
             processing.fill(mappedHue, 100, 100);
@@ -39,6 +38,10 @@ define(['jquery', 'app/fft', 'vendor/processing'],
 
     API.destroy = function() {
       $('#fft').remove();
+    };
+
+    API.reOrder = function(i) {
+      $('#fft').css('z-index', 100 - parseInt(i) );
     };
 
     return API;

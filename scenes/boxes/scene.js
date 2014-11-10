@@ -75,6 +75,10 @@ define(['app/params', 'vendor/three', 'app/renderer', 'app/camera', 'app/3dconta
       rendering = false;
     };
 
+    API.reOrder = function(i) {
+      $('#three-container').css('z-index', 100 - parseInt(i));
+    };
+
     return API;
   }
 );
