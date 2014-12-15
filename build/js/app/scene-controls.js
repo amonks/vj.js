@@ -1,6 +1,6 @@
 define(['app/vjjs', 'vendor/jquery-ui-sortable'],
   function(VJJS, $) {
-    function makeSceneLoader(scene, params) {
+    function makeSceneLoader(scene) {
       var buttonString = '<div class="control-group scene" id="scene-' + scene + '">';
       buttonString += '<h4>' + scene + '</h4>';
       buttonString += '<button id="load-' + scene + '">load</button>';
@@ -15,10 +15,12 @@ define(['app/vjjs', 'vendor/jquery-ui-sortable'],
         VJJS.destroyScene(scene);
       });
     }
+
     var scenes = VJJS.getScenes();
     for (var scene in scenes) {
       makeSceneLoader(scenes[scene]);
     }
+
     $("#scene-list").sortable({
       update: function(event, ui) {
         $('.scene').each(function(i) {

@@ -1,0 +1,16 @@
+fieldset
+  li
+    label Title
+    - if canChangeTitle == true
+      input name="scene[][title]" value=@scene[:title]
+    - else
+      input name="scene[][title]" value=@scene[:title] readOnly=true
+  li
+    label Author
+    input name="scene[][author]" value=@scene[:author]
+  li
+    label Version
+    input name="scene[][version]" value=@scene[:version]
+  li
+    label JavaScript
+    textarea name="scene[][scene_js]" = @scene[:scene_js]

@@ -1,0 +1,4 @@
+h2 Create Scene
+form action='/create' method='POST'
+  == partial(:form, locals: {canChangeTitle: true})
+  input type='submit'

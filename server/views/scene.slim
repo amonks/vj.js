@@ -1,0 +1,21 @@
+div.scene
+  ul.buttons
+    li.button
+      a href="/scenes/#{scene[:title]}/edit" edit
+    li.button
+      a href="/scenes/#{scene[:title]}/delete" delete
+    / li.button
+    /   a href="/scenes/#{scene[:title]}/show" show
+  dl.data
+    dt title
+    dd = scene[:title]
+    dt author
+    dd = scene[:author]
+    dt version
+    dd = scene[:version]
+    dt date created
+    dd = scene[:date_created]
+    dt id
+    dd = scene[:scene_id]
+    dt content
+    dd = scene[:scene_js]

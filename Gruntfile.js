@@ -46,6 +46,12 @@ module.exports = function(grunt) {
             dest: 'build/js/require.js'
           },
           {
+            cwd: 'bower_components/requirejs-plugins/src/',
+            src: '**/*',
+            expand: true,
+            dest: 'build/js/vendor/requirejs-plugins/'
+          },
+          {
             src: 'bower_components/jquery-ui-sortable/jquery-ui-sortable.js',
             dest: 'build/js/vendor/jquery-ui-sortable.js'
           },
@@ -82,7 +88,17 @@ module.exports = function(grunt) {
             dest: 'build/js/vendor/fft.js'
           }
         ]
-      }
+      },
+      server: {
+        files: [
+          {
+            cwd: 'dist',
+            src: '**/*',
+            dest: 'server/public',
+            expand: true
+          },
+        ]
+      },
     },
 
     'stylus': {
@@ -121,7 +137,6 @@ module.exports = function(grunt) {
         options: {
           allowSourceOverwrites: true,
           appDir: "build",
-          baseUrl: "js",
           baseUrl: "build/js",
           dir: "dist",
         }
@@ -184,6 +199,10 @@ module.exports = function(grunt) {
     'stylus:compile',
     'concat:css',
     'jade:index',
+  ]);
+  grunt.registerTask('server', [
+    'dist',
+    'copy:server'
   ]);
   grunt.registerTask('dist', [
     'build',
