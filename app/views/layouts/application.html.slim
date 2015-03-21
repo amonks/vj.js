@@ -10,5 +10,7 @@ html
       = notice
     p.alert
       = alert
+    p.sign_off
+      = link_to "sign out", destroy_user_session_path, :method => :delete
     = yield
 
