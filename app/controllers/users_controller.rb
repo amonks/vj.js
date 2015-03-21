@@ -10,6 +10,7 @@ class UsersController < ApplicationController
 
   def me
     @user = current_user
+    @scripts = @user.scripts.all
   end
 
 end

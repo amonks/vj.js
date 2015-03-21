@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   resources :scripts
   resources :users
 
+  get 'me' => 'users#me'
+
   # You can have the root of your site routed with "root"
   root 'welcome#index'
 
