@@ -16,7 +16,7 @@ class ScriptsController < ApplicationController
   end
 
   def create
-    @script = Script.new(script_params)
+    @script = current_user.scripts.create(script_params)
 
     if @script.save
       redirect_to @script

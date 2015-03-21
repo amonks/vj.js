@@ -1,4 +1,7 @@
-h1 listing scripts
 p
-  = link_to 'new script', new_script_path
+  strong email:
+  =< @user.email
+
 = render partial: "scripts/table", locals: {scripts: @scripts}
+
+/ link_to 'back', users_path

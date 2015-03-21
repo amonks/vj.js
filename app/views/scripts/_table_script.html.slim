@@ -1,0 +1,15 @@
+tr
+  td
+    = table_script.title
+  td
+    = table_script.user.email if table_script.user
+  td
+    = table_script.text
+  td
+    = link_to 'show', script_path(table_script)
+  td
+    = link_to 'edit', edit_script_path(table_script)
+  td
+    = link_to 'destroy', script_path(table_script),
+        method: :delete,
+        data: { confirm: 'are you sure?' }

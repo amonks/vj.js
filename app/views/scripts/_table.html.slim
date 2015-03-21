@@ -1,0 +1,9 @@
+table
+  tr
+    th title
+    th user
+    th text
+    th colspan="3"
+
+  - scripts.each do |script|
+    = render partial: "scripts/table_script", object: script
