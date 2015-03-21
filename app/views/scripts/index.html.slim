@@ -1,0 +1,23 @@
+h1 listing scripts
+p
+  = link_to 'new script', new_script_path
+table
+  tr
+    th title
+    th text
+    th colspan="2"
+
+  - @scripts.each do |script|
+    tr
+      td
+        = script.title
+      td
+        = script.text
+      td
+        = link_to 'show', script_path(script)
+      td
+        = link_to 'edit', edit_script_path(script)
+      td
+        = link_to 'destroy', script_path(script),
+            method: :delete,
+            data: { confirm: 'are you sure?' }
