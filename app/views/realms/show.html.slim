@@ -1,0 +1,11 @@
+p
+  strong title:
+  =< @realm.title
+
+p
+  strong text:
+  =< @realm.text
+
+=> link_to 'edit', edit_realm_path(@realm)
+' |
+= link_to 'back', realms_path

@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_many :scripts
+  has_many :realms
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

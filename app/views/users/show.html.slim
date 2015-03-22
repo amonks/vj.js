@@ -2,6 +2,10 @@ p
   strong email:
   =< @user.email
 
+h2 realms
+== render partial: "realms/table", locals: {realms: @realms}
+
+h2 scripts
 = render partial: "scripts/table", locals: {scripts: @scripts}
 
 / link_to 'back', users_path

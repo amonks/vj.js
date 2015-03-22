@@ -7,6 +7,15 @@ class ScriptsController < ApplicationController
     @script = Script.find(params[:id])
   end
 
+  def show_by_user
+    @user = User.find_by name: params[:user_name]
+    @script = Script.find_by title: params[:script_title], user_id: @user.id
+    respond_to do |format|
+      format.html { render :file => 'scripts/show.html.slim' }
+      format.js { render :text => @script.text }
+    end
+  end
+
   def new
     @script = Script.new
   end
@@ -46,4 +55,5 @@ class ScriptsController < ApplicationController
     def script_params
       params.require(:script).permit(:title, :text)
     end
+
 end

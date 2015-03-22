@@ -1,0 +1,15 @@
+tr
+  td
+    = table_realm.title
+  td
+    = table_realm.user.email if table_realm.user
+  td
+    = table_realm.text
+  td
+    = link_to 'show', realm_path(table_realm)
+  td
+    = link_to 'edit', edit_realm_path(table_realm)
+  td
+    = link_to 'destroy', realm_path(table_realm),
+      method: :delete,
+      data: { confirm: 'are you sure?' }

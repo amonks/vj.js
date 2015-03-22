@@ -2,6 +2,7 @@ h1 listing users
 table
   tr
     th email
+    th name
     th colspan="2"
 
   - @users.each do |user|
@@ -9,5 +10,13 @@ table
       td
         = user.email
       td
+        = user.name
+      td
         = link_to 'show', user_path(user)
+      td
+        = link_to 'edit', edit_user_path(user)
+      td
+        = link_to 'destroy', user_path(user),
+          method: :delete,
+          data: { confirm: 'are you sure?' }
 

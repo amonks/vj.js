@@ -1,0 +1,4 @@
+h1 listing realms
+p
+  = link_to 'new realm', new_realm_path
+= render partial: "realms/table", locals: {realms: @realms}

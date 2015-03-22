@@ -1,0 +1,9 @@
+table
+  tr
+    th title
+    th user
+    th text
+    th colspan="3"
+
+  - realms.each do |realm|
+    = render partial: "realms/table_realm", object: realm
