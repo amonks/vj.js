@@ -8,7 +8,7 @@ class ScriptsController < ApplicationController
   end
 
   def show_by_user
-    @user = User.find_by name: params[:user_name]
+    @user = User.find_by name: params[:uid]
     @script = Script.find_by title: params[:script_title], user_id: @user.id
     respond_to do |format|
       format.html { render :file => 'scripts/show.html.slim' }

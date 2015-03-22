@@ -5,19 +5,19 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   resources :scripts
-  resources :users
   resources :realms
 
   get 'realms/:id/raw' => 'realms#raw'
   get 'realms/:id/display' => 'realms#display'
   get 'me' => 'users#me'
 
-  get ':user_name' => 'users#show'
+  get ':uid' => 'users#show'
 
-  get ':user_name/realms' => 'users#show'
-  get ':user_name/realms/:realm_title' => 'realms#show_by_user'
-  get ':user_name/realms/:realm_title/display' => 'realms#display_by_user'
-  get ':user_name/:script_title' => 'scripts#show_by_user'
+  get ':uid/realms' => 'users#show'
+  get ':uid/realms/:realm_title' => 'realms#show_by_user'
+  get ':uid/realms/:realm_title/display' => 'realms#display_by_user'
+  get ':uid/:script_title' => 'scripts#show_by_user'
+  get ':uid/:script_title/bless' => 'realms#new'
 
   # You can have the root of your site routed with "root"
   root 'welcome#index'

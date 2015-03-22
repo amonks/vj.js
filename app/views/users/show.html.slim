@@ -2,6 +2,14 @@ p
   strong email:
   =< @user.email
 
+p
+  strong uid:
+  =< @user.uid
+
+p
+  strong name:
+  =< @user.name
+
 h2 realms
 == render partial: "realms/table", locals: {realms: @realms}
 

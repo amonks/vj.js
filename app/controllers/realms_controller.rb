@@ -15,7 +15,7 @@ class RealmsController < ApplicationController
   end
 
   def display_by_user
-    @user = User.find_by name: params[:user_name]
+    @user = User.find_by name: params[:uid]
     @realm = Realm.find_by title: params[:realm_title], user_id: @user.id
     render layout: false, file: 'realms/display.html.slim'
   end
@@ -25,7 +25,7 @@ class RealmsController < ApplicationController
   end
 
   def show_by_user
-    @user = User.find_by name: params[:user_name]
+    @user = User.find_by name: params[:uid]
     @realm = Realm.find_by title: params[:realm_title], user_id: @user.id
     respond_to do |format|
       format.html { render :file => 'realms/show.html.slim' }
@@ -39,6 +39,8 @@ class RealmsController < ApplicationController
 
   def create
     @realm = current_user.realms.create(realm_params)
+    @script = Script.find_by title: params[:script_title]
+    @realm.script_id = @script.id
 
     if @realm.save
       redirect_to @realm
