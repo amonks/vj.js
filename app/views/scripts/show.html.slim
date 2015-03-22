@@ -15,9 +15,9 @@ p
 /   data: { title: @script.title, script_id: @script.id }
 
 = form_for @realm do |f|
-  .hidden
-    = f.text_field :title
-      = @script.title
-    = f.text_field :script_id
-      = @script.id
+  / .hidden
+  = f.text_field :title
+    = @script.title
+  = f.text_field :script_id
+    = @script.id
   = f.submit

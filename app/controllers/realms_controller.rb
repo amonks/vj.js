@@ -11,6 +11,7 @@ class RealmsController < ApplicationController
 
   def display
     @realm = Realm.find(params[:id])
+    @script = Script.find @realm.script_id
     render layout: false
   end
 
