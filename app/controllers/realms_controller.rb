@@ -38,9 +38,8 @@ class RealmsController < ApplicationController
   end
 
   def create
+    binding.pry
     @realm = current_user.realms.create(realm_params)
-    @script = Script.find_by title: params[:script_title]
-    @realm.script_id = @script.id
 
     if @realm.save
       redirect_to @realm

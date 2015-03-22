@@ -10,4 +10,14 @@ p
 ' |
 = link_to 'back', scripts_path
 ' |
-= link_to 'make realm', scripts_path
+/ = link_to 'make realm', realms_path + {title: @script.title, script_id: @script.id },
+/   method: :post,
+/   data: { title: @script.title, script_id: @script.id }
+
+= form_for @realm do |f|
+  .hidden
+    = f.text_field :title
+      = @script.title
+    = f.text_field :script_id
+      = @script.id
+  = f.submit

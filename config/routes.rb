@@ -6,9 +6,11 @@ Rails.application.routes.draw do
 
   resources :scripts
   resources :realms
+  resources :users
 
   get 'realms/:id/raw' => 'realms#raw'
   get 'realms/:id/display' => 'realms#display'
+
   get 'me' => 'users#me'
 
   get ':nickname' => 'users#show'

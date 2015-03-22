@@ -5,6 +5,7 @@ class ScriptsController < ApplicationController
 
   def show
     @script = Script.find(params[:id])
+    @realm = current_user.realms.create(:script_id => @script.id, :title => @script.title);
   end
 
   def show_by_user
