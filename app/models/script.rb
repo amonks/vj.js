@@ -1,5 +1,5 @@
 class Script < ActiveRecord::Base
-  belongs_to :realm
+  has_and_belongs_to_many :realm
   belongs_to :user
 
   validates :title, presence: true,
