@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = match_uid_or_id
+    @user = match_nickname_or_id
     @scripts = @user.scripts.all
     @realms = @user.realms.all
   end
@@ -18,12 +18,12 @@ class UsersController < ApplicationController
 
   private
     def user_params
-      params.require(:user).permit(:uid, :name)
+      params.require(:user).permit(:nickname, :name)
     end
 
-    def match_uid_or_id
-      if params[:uid]
-        User.find_by uid: params[:uid]
+    def match_nickname_or_id
+      if params[:nickname]
+        User.find_by nickname: params[:nickname]
       elsif params[:id]
         User.find params[:id]
       end

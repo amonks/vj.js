@@ -4,7 +4,7 @@ class RealmsController < ApplicationController
   end
 
   def index_by_user
-    @user = User.find_by name: params[:name]
+    @user = User.find_by nickname: params[:nickname]
     @realms = @user.realms.all
     render file: 'realms/index.html.slim'
   end
@@ -15,7 +15,7 @@ class RealmsController < ApplicationController
   end
 
   def display_by_user
-    @user = User.find_by name: params[:uid]
+    @user = User.find_by nickname: params[:nickname]
     @realm = Realm.find_by title: params[:realm_title], user_id: @user.id
     render layout: false, file: 'realms/display.html.slim'
   end
@@ -25,7 +25,7 @@ class RealmsController < ApplicationController
   end
 
   def show_by_user
-    @user = User.find_by name: params[:uid]
+    @user = User.find_by nickname: params[:nickname]
     @realm = Realm.find_by title: params[:realm_title], user_id: @user.id
     respond_to do |format|
       format.html { render :file => 'realms/show.html.slim' }

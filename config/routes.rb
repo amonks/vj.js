@@ -11,13 +11,13 @@ Rails.application.routes.draw do
   get 'realms/:id/display' => 'realms#display'
   get 'me' => 'users#me'
 
-  get ':uid' => 'users#show'
+  get ':nickname' => 'users#show'
 
-  get ':uid/realms' => 'users#show'
-  get ':uid/realms/:realm_title' => 'realms#show_by_user'
-  get ':uid/realms/:realm_title/display' => 'realms#display_by_user'
-  get ':uid/:script_title' => 'scripts#show_by_user'
-  get ':uid/:script_title/bless' => 'realms#new'
+  get ':nickname/realms' => 'users#show'
+  get ':nickname/realms/:realm_title' => 'realms#show_by_user'
+  get ':nickname/realms/:realm_title/display' => 'realms#display_by_user'
+  get ':nickname/:script_title' => 'scripts#show_by_user'
+  get ':nickname/:script_title/bless' => 'realms#new'
 
   # You can have the root of your site routed with "root"
   root 'welcome#index'
