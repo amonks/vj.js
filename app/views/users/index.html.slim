@@ -13,8 +13,8 @@ table
         = user.name
       td
         = link_to 'show', user_path(user)
-      td
-        = link_to 'edit', edit_user_path(user)
+      / td
+      /   = link_to 'edit', edit_user_path(user)
       td
         = link_to 'destroy', user_path(user),
           method: :delete,
