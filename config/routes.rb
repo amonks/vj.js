@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   post 'scripts' => 'scripts#create'
   get 'scripts/new' => 'scripts#new',                                   as: 'new_script'
   get 'scripts/:id/edit' => 'scripts#edit',                             as: 'edit_script'
-  get 'scripts/:id' => 'scripts#show',                                  as: 'script'
+  get 'scripts/:id' => 'scripts#show',                                  as: :script
   patch 'scripts/:id' => 'scripts#update'
   put 'scripts/:id' => 'scripts#update'
   delete 'scripts/:id' => 'scripts#destroy'
@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   get 'realms' => 'realms#index',                                       as: 'realms'
   get ':nickname/realms' => 'users#show',                               as: 'user_realms'
   post 'realms' => 'realms#create'
-  get ':nickname/realms/:realm_title' => 'realms#show_by_user',         as: 'realm'
+  get ':nickname/realms/:realm_title' => 'realms#show_by_user',         as: :realm
   get 'realms/:id/raw' => 'realms#raw',                                 as: 'raw_realm'
   get ':nickname/realms/:realm_title/display' => 'realms#display_by_user', as: 'display_realm'
   get 'realms/new' => 'realms#new',                                     as: 'new_realm'
@@ -34,7 +34,7 @@ Rails.application.routes.draw do
 
   get 'users' => 'users#index',                                         as: 'users'
   get 'me' => 'users#me',                                               as: 'me'
-  get ':nickname' => 'users#show',                                      as: 'user'
+  get ':nickname' => 'users#show',                                      as: :user
 
 
   root 'welcome#index'
