@@ -15,7 +15,7 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'rails_12factor'
 
 # See https://github.com/rails/execjs#readme for more supported runtimes
-gem 'pry', :groups => [:development]
+gem 'pry', :groups => [:development, :test]
 gem 'therubyracer', platforms: :ruby
 gem 'dotenv-rails', :groups => [:development, :test]
 gem 'devise'
@@ -42,6 +42,10 @@ gem 'slim-rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+
+group :test do
+  gem 'minitest-reporters'
+end
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

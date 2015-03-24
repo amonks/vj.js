@@ -1,11 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
-  user_id: 
-  description: MyText
+  id: 1
+  title: realmOne
+  user_id: 1
+  description: my first cool realm
+  script_id: 1
 
 two:
-  title: MyString
-  user_id: 
-  description: MyText
+  id: 2
+  title: realmTwo
+  user_id: 2
+  description: my second cool realm
+  script_id: 2

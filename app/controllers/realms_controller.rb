@@ -23,6 +23,11 @@ class RealmsController < ApplicationController
     @realm = Realm.new
   end
 
+  def edit
+    @user = User.find_by nickname: params[:user_nickname]
+    @realm = Realm.find_by title: params[:realm_title], user_id: @user.id
+  end
+
   def create
     @realm = current_user.realms.create(realm_params)
 
@@ -52,7 +57,7 @@ class RealmsController < ApplicationController
 
   private
     def realm_params
-      params.require(:realm).permit(:title, :text, :description)
+      params.require(:realm).permit(:title, :script_id, :description)
     end
 
 end
