@@ -4,16 +4,11 @@ class ScriptsController < ApplicationController
   end
 
   def show
-    @script = Script.find(params[:id])
-    @realm = current_user.realms.create(:script_id => @script.id, :title => @script.title)
-  end
-
-  def show_by_user
     @user = User.find_by nickname: params[:nickname]
     @script = Script.find_by title: params[:script_title], user_id: @user.id
     @realm = current_user.realms.create(:script_id => @script.id, :title => @script.title)
     respond_to do |format|
-      format.html { render :file => 'scripts/show.html.slim' }
+      format.html { render }
       format.js { render :text => @script.text }
     end
   end
@@ -23,7 +18,8 @@ class ScriptsController < ApplicationController
   end
 
   def edit
-    @script = Script.find(params[:id])
+    @user = User.find_by nickname: params[:nickname]
+    @script = Script.find_by user_id: @user.id, title: params[:script_title]
   end
 
   def create

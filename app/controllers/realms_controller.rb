@@ -3,29 +3,14 @@ class RealmsController < ApplicationController
     @realms = Realm.all
   end
 
-  def index_by_user
-    @user = User.find_by nickname: params[:nickname]
-    @realms = @user.realms.all
-    render file: 'realms/index.html.slim'
-  end
-
   def display
-    @realm = Realm.find(params[:id])
+    @user = User.find_by nickname: params[:nickname]
+    @realm = Realm.find_by user_id: @user.id, title: params[:realm_title]
     @script = Script.find @realm.script_id
     render layout: false
   end
 
-  def display_by_user
-    @user = User.find_by nickname: params[:nickname]
-    @realm = Realm.find_by title: params[:realm_title], user_id: @user.id
-    render layout: false, file: 'realms/display.html.slim'
-  end
-
   def show
-    @realm = Realm.find(params[:id])
-  end
-
-  def show_by_user
     @user = User.find_by nickname: params[:nickname]
     @realm = Realm.find_by title: params[:realm_title], user_id: @user.id
     respond_to do |format|
@@ -39,7 +24,6 @@ class RealmsController < ApplicationController
   end
 
   def create
-    binding.pry
     @realm = current_user.realms.create(realm_params)
 
     if @realm.save
