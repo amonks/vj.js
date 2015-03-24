@@ -2,6 +2,10 @@ class User < ActiveRecord::Base
   has_many :scripts
   has_many :realms
 
+  def to_param
+    "#{nickname}"
+  end
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
