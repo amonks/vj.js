@@ -1,11 +1,11 @@
 p
   strong title:
-  =< @realm.title
+  =< @realm.realm_title
 
 p
   strong script:
   =< @realm.script.title
 
-=> link_to 'edit', edit_realm_path(@realm)
+=> link_to 'edit', edit_user_realm_path(@user, @realm)
 ' |
-= link_to 'back', realms_path
+= link_to 'back', user_path(@user)

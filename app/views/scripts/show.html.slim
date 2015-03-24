@@ -6,9 +6,9 @@ p
   strong text:
   = @script.text
 
-=> link_to 'edit', edit_script_path(@script)
+=> link_to 'edit', edit_user_script_path(@user, @script)
 ' |
-= link_to 'back', scripts_path
+= link_to 'back', user_path(@user)
 ' |
 / = link_to 'make realm', realms_path + {title: @script.title, script_id: @script.id },
 /   method: :post,
@@ -16,7 +16,7 @@ p
 
 = form_for @realm do |f|
   / .hidden
-  = f.text_field :title
+  = f.text_field :realm_title
     = @script.title
   = f.text_field :script_id
     = @script.id

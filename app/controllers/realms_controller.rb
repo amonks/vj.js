@@ -11,8 +11,8 @@ class RealmsController < ApplicationController
   end
 
   def show
-    @user = User.find_by nickname: params[:nickname]
-    @realm = Realm.find_by title: params[:realm_title], user_id: @user.id
+    @user = User.find_by nickname: params[:user_nickname]
+    @realm = Realm.find_by realm_title: params[:realm_title], user_id: @user.id
     respond_to do |format|
       format.html { render :file => 'realms/show.html.slim' }
       format.js { render :text => @realm.text }

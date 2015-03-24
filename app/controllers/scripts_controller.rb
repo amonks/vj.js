@@ -4,9 +4,9 @@ class ScriptsController < ApplicationController
   end
 
   def show
-    @user = User.find_by nickname: params[:nickname]
+    @user = User.find_by nickname: params[:user_nickname]
     @script = Script.find_by title: params[:script_title], user_id: @user.id
-    @realm = current_user.realms.create(:script_id => @script.id, :title => @script.title)
+    @realm = current_user.realms.create(:script_id => @script.id)
     respond_to do |format|
       format.html { render }
       format.js { render :text => @script.text }

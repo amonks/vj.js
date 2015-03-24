@@ -6,10 +6,10 @@ tr
   td
     = table_script.text
   td
-    = link_to 'show', script_path(table_script)
+    = link_to 'show', user_script_path(table_script.user, table_script)
   td
-    = link_to 'edit', edit_script_path(table_script)
+    = link_to 'edit', edit_user_script_path(table_script.user, table_script)
   td
-    = link_to 'destroy', script_path(table_script),
+    = link_to 'destroy', user_script_path(table_script.user, table_script),
         method: :delete,
         data: { confirm: 'are you sure?' }

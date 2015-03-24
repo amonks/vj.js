@@ -1,4 +1,4 @@
 h1 listing scripts
 p
-  = link_to 'new script', new_script_path
+  / link_to 'new script', new_user_script_path(@user)
 = render partial: "scripts/table", locals: {scripts: @scripts}

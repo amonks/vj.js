@@ -4,19 +4,21 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
 
-  resources :scripts
-  resources :realms
-  resources :users, param: :nickname do
-    resources :scripts, param: :script_title
-    resources :realms, param: :realm_title
+  root 'welcome#index'
+
+  get 'me' => 'users#me',                                               as: 'me'
+
+  resources :scripts, only: [:index]
+  resources :realms, only: [:index]
+  # resources :realms
+  resources :users, :path => '', param: :nickname do
+    resources :scripts, :path => '', param: :script_title, only: [:new, :create, :show, :edit, :update, :destroy]
+    resources :realms, param: :realm_title, only: [:new, :create, :show, :edit, :update, :destroy]
   end
 
   # get 'realms/:id/raw' => 'realms#raw',                                 as: 'raw_realm'
   # get ':nickname/realms/:realm_title/display' => 'realms#display_by_user', as: 'display_realm'
 
 
-  get 'me' => 'users#me',                                               as: 'me'
-
-  root 'welcome#index'
 
 end
