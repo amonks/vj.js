@@ -1,5 +1,4 @@
 h1.page-header dashboard
-= render partial: "users/user_media_object", object: @user
 
 h2 realms
 = render partial: "realms/table", locals: {realms: @realms}
@@ -9,4 +8,3 @@ h2
   a href=new_user_script_path(@user)
     button.btn.btn-primary new script
 = render partial: "scripts/table", locals: {scripts: @scripts}
-

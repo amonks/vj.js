@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20150322000734) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "nickname",               default: "", null: false
+    t.string   "name"
     t.string   "provider"
     t.string   "uid"
   end
