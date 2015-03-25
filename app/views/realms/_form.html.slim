@@ -1,15 +1,16 @@
-= form_for @realm do |f|
+= form_for [@user, @realm] do |f|
 
   - if @realm.errors.any?
     #error_explanation
       h2
         => pluralize(@realm.errors.count, "error")
-        | prohibited this article from being saved:
+        | prohibited this realm from being saved:
       ul
         - @realm.errors.full_messages.each do |msg|
           li
             = msg
 
+  - puts @realm
   p
     = f.label :title
     br
@@ -19,6 +20,11 @@
     = f.label :description
     br
     = f.text_area :description
+
+  p
+    = f.label :script_id
+    br
+    = f.text_field :script_id
 
   p
     = f.submit

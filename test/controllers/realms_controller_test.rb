@@ -18,7 +18,7 @@ class RealmsControllerTest < ActionController::TestCase
 
   test "should show edit" do
     sign_in User.first
-    get :edit, {user_nickname: 'amonks', realm_title: 'realmOne'}
+    get :edit, {user_nickname: 'amonks', title: 'realmOne'}
     assert_response :success
     assert_not_nil assigns(:user)
     assert_not_nil assigns(:realm)

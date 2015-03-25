@@ -1,23 +1,16 @@
-p
-  strong title:
-  = @script.title
+h1
+  == @script.title + ' '
+  small script
 
-p
-  strong text:
+pre
   = @script.text
 
-=> link_to 'edit', edit_user_script_path(@user, @script)
-' |
 = link_to 'back', user_path(@user)
-' |
-/ = link_to 'make realm', realms_path + {title: @script.title, script_id: @script.id },
-/   method: :post,
-/   data: { title: @script.title, script_id: @script.id }
-
-= form_for @realm do |f|
-  / .hidden
-  = f.text_field :realm_title
-    = @script.title
-  = f.text_field :script_id
-    = @script.id
-  = f.submit
+= ' | '
+=> link_to 'edit', edit_user_script_path(@user, @script)
+= ' | '
+= link_to 'realmify', realmify_user_script_path(@user, @script)
+= ' | '
+= link_to 'destroy', '#',
+    method: :delete,
+    data: { confirm: 'are you sure?' }

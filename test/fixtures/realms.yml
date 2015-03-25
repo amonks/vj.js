@@ -2,14 +2,14 @@
 
 one:
   id: 1
-  realm_title: realmOne
+  title: realmOne
   user_id: 1
   description: my first cool realm
   script_id: 1
 
 two:
   id: 2
-  realm_title: realmTwo
+  title: realmTwo
   user_id: 2
   description: my second cool realm
   script_id: 2

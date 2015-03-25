@@ -1,11 +1,19 @@
-p
-  strong title:
-  =< @realm.realm_title
+.page-header
+  h1
+    = @realm.title + '.js '
+    small realm
 
-p
-  strong script:
-  =< @realm.script.title
+- if @realm.description
+  p
+    strong description
+    =< @realm.description
 
-=> link_to 'edit', edit_user_realm_path(@user, @realm)
-' |
+== render partial: 'scripts/panel_script', object: @realm.script
+
 = link_to 'back', user_path(@user)
+= ' | '
+= link_to 'edit', edit_user_realm_path(@user, @realm)
+= ' | '
+= link_to 'destroy', '#',
+  method: :delete,
+  data: { confirm: 'are you sure?' }

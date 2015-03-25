@@ -11,13 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150324180150) do
+ActiveRecord::Schema.define(version: 20150322000734) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "realms", force: :cascade do |t|
-    t.string   "realm_title"
+    t.string   "title"
     t.integer  "user_id"
     t.text     "description"
     t.integer  "script_id"
@@ -27,14 +27,6 @@ ActiveRecord::Schema.define(version: 20150324180150) do
 
   add_index "realms", ["script_id"], name: "index_realms_on_script_id", using: :btree
   add_index "realms", ["user_id"], name: "index_realms_on_user_id", using: :btree
-
-  create_table "realms_scripts", id: false, force: :cascade do |t|
-    t.integer "realm_id",  null: false
-    t.integer "script_id", null: false
-  end
-
-  add_index "realms_scripts", ["realm_id"], name: "index_realms_scripts_on_realm_id", using: :btree
-  add_index "realms_scripts", ["script_id"], name: "index_realms_scripts_on_script_id", using: :btree
 
   create_table "scripts", force: :cascade do |t|
     t.string   "title"

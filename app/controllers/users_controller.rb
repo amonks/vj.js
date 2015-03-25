@@ -13,7 +13,6 @@ class UsersController < ApplicationController
     @user = current_user
     @scripts = @user.scripts.all
     @realms = @user.realms.all
-    render :file => "users/show.html.slim"
   end
 
   private

@@ -1,10 +1,10 @@
-= form_for @script do |f|
+= form_for [@user, @script] do |f|
 
   - if @script.errors.any?
     #error_explanation
       h2
         => pluralize(@script.errors.count, "error")
-        | prohibited this article from being saved:
+        | prohibited this script from being saved:
       ul
         - @script.errors.full_messages.each do |msg|
           li

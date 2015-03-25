@@ -1,15 +1,19 @@
 tr
   td
-    = table_script.title
+    = link_to table_script.title + '.js', user_script_path(table_script.user, table_script)
   td
     = table_script.user.email if table_script.user
   td
-    = table_script.text
+    code
+      = table_script.text
   td
-    = link_to 'show', user_script_path(table_script.user, table_script)
+    = link_to 'raw', user_script_path(table_script.user, table_script) + '.js'
   td
-    = link_to 'edit', edit_user_script_path(table_script.user, table_script)
+    a href=edit_user_script_path(table_script.user, table_script)
+      button.btn.btn-default.btn-block.btn-xs type="button" edit
   td
-    = link_to 'destroy', user_script_path(table_script.user, table_script),
-        method: :delete,
-        data: { confirm: 'are you sure?' }
+    a href=realmify_user_script_path(table_script.user, table_script)
+      button.btn.btn-default.btn-block.btn-xs type="button" realmify
+  td
+    a href=user_script_path(table_script.user, table_script) data-method="delete" data-confirm="are you sure?"
+      button.btn.btn-danger.btn-block.btn-xs type="button" destroy

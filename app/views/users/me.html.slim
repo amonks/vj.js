@@ -1,7 +1,4 @@
-p
-  strong email:
-  =< @user.email
-
-= render partial: "scripts/table", locals: {scripts: @scripts}
-
-/ link_to 'back', users_path
+h1 dashboard
+h2
+  = link_to 'new script', new_user_script_path(@user)
+= render file: "users/show", layout: false

@@ -3,11 +3,12 @@ class Realm < ActiveRecord::Base
   belongs_to :script
 
   def to_param
-    "#{realm}"
+    "#{title}"
   end
 
-  validates :realm_title, presence: true,
-                    length: { minimum: 3 }
+  validates :title, presence: true,
+                    length: { minimum: 3 },
+                    uniqueness: { scope: :user }
   validates :script_id, presence: true,
                         length: { minimum: 1 }
 end

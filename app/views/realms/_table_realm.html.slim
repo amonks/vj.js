@@ -1,15 +1,19 @@
 tr
   td
-    = table_realm.realm_title
+    = table_realm.title
+    / link_to table_realm.title, display_user_realm_path(table_realm.user, table_realm)
   td
     = table_realm.user.email if table_realm.user
   td
-    = table_realm.script.title
+    = table_realm.description
   td
-    = link_to 'show', user_realm_path(table_realm.user, table_realm)
+    = link_to table_realm.script.title + '.js', user_script_path(table_realm.user, table_realm.script)
   td
-    = link_to 'edit', edit_user_realm_path(table_realm.user, table_realm)
+    a href=user_realm_path(table_realm.user, table_realm)
+      button.btn.btn-success.btn-block.btn-xs type="button" display
   td
-    = link_to 'destroy', user_realm_path(table_realm.user, table_realm),
-      method: :delete,
-      data: { confirm: 'are you sure?' }
+    a href=edit_user_realm_path(table_realm.user, table_realm)
+      button.btn.btn-default.btn-block.btn-xs type="button" edit
+  td
+    a href=user_realm_path(table_realm.user, table_realm) data-method="delete" data-confirm="are you sure?"
+      button.btn.btn-danger.btn-block.btn-xs type="button" destroy

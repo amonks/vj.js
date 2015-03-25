@@ -7,6 +7,7 @@ class Script < ActiveRecord::Base
   end
 
   validates :title, presence: true,
+                    uniqueness: { scope: :user },
                     length: { minimum: 3 }
   validates :text,  presence: true,
                     length: { minimum: 3 }

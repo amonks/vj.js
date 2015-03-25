@@ -4,21 +4,35 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
 
-  root 'welcome#index'
+  root 'users#me'
 
   get 'me' => 'users#me',                                               as: 'me'
 
+  post ':user_nickname/scripts' => 'scripts#create', as: "user_script_index"
+  post ':user_nickname/realms' => 'realms#create', as: 'user_realm_index'
+
+  resources :users, only: [:index]
   resources :scripts, only: [:index]
   resources :realms, only: [:index]
-  # resources :realms
-  resources :users, :path => '', param: :nickname do
-    resources :scripts, :path => '', param: :script_title, only: [:new, :create, :show, :edit, :update, :destroy]
-    resources :realms, param: :realm_title, only: [:new, :create, :show, :edit, :update, :destroy]
+
+  get ':user_nickname/scripts' => 'scripts#index', as: 'user_scripts'
+  get ':user_nickname/realms' => 'realms#index', as: 'user_realms'
+
+  get ':user_nickname/realms/:title/display' => 'realms#display', as: 'display_user_realm'
+
+  resources :users, path: '', only: [:show], param: :nickname do
+    resources :realms,
+              path: '/realms',
+              param: :title,
+              as: :realm,
+              only: [:new, :show, :edit, :update, :destroy]
+    resources :scripts,
+              path: '',
+              param: :title,
+              only: [:new, :show, :edit, :update, :destroy],
+              as: :script
   end
 
-  # get 'realms/:id/raw' => 'realms#raw',                                 as: 'raw_realm'
-  # get ':nickname/realms/:realm_title/display' => 'realms#display_by_user', as: 'display_realm'
-
-
+  get ':user_nickname/:title/realmify' => 'scripts#realmify', as: 'realmify_user_script'
 
 end
