@@ -28,9 +28,8 @@ class ScriptsController < ApplicationController
     @script = @user.scripts.create(script_params)
 
     if @script.save
-      # redirect_to controller: :scripts, action: :show, title: @script.title
       puts user_script_url(@user, @script)
-      redirect_to user_script_url(@user, @script)
+      redirect_to dashboard_url
     else
       render 'new'
     end
@@ -41,7 +40,7 @@ class ScriptsController < ApplicationController
     @script = Script.find_by title: params[:title], user_id: @user.id
 
     if @script.update(script_params)
-      redirect_to user_script_path(@user, @script)
+      redirect_to dashboard_url
     else
       render 'edit'
     end
@@ -60,7 +59,7 @@ class ScriptsController < ApplicationController
     @script.realms.destroy_all
     @script.destroy
 
-    redirect_to scripts_path
+    redirect_to dashboard_url
   end
 
   private

@@ -33,7 +33,7 @@ class RealmsController < ApplicationController
     @realm = @user.realms.create(realm_params)
 
     if @realm.save
-      redirect_to user_realm_path(@user, @realm)
+      redirect_to dashboard_path
     else
       render 'new'
     end
@@ -44,7 +44,7 @@ class RealmsController < ApplicationController
     @realm = Realm.find_by title: params[:title], user_id: @user.id
 
     if @realm.update(realm_params)
-      redirect_to user_realm_path(@user, @realm)
+      redirect_to dashboard_path
     else
       render 'edit'
     end
@@ -55,7 +55,7 @@ class RealmsController < ApplicationController
     @realm = Realm.find_by title: params[:title], user_id: @user.id
     @realm.destroy
 
-    redirect_to realms_path
+    redirect_to dashboard_path
   end
 
   private

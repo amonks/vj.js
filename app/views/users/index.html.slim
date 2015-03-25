@@ -1,6 +1,7 @@
 h1 listing users
-table
+table.table
   tr
+    th nickname
     th email
     th name
     th colspan="2"
@@ -8,15 +9,15 @@ table
   - @users.each do |user|
     tr
       td
+        = link_to user.nickname, user_path(user)
+      td
         = user.email
       td
         = user.name
       td
-        = link_to 'show', user_path(user)
-      / td
-      /   = link_to 'edit', edit_user_path(user)
+        a href=edit_user_registration_path(user)
+          button.btn.btn-default.btn-block.btn-xs type="button" edit
       td
-        = link_to 'destroy', user_path(user),
-          method: :delete,
-          data: { confirm: 'are you sure?' }
+        a href=cancel_user_registration_path(user)
+          button.btn.btn-danger.btn-block.btn-xs type="button" destroy
 

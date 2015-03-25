@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     @realms = @user.realms.all
   end
 
-  def me
+  def dashboard
     @user = current_user
     @scripts = @user.scripts.all
     @realms = @user.realms.all

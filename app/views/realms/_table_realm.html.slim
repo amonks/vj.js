@@ -1,7 +1,6 @@
 tr
   td
     = table_realm.title
-    / link_to table_realm.title, display_user_realm_path(table_realm.user, table_realm)
   td
     = table_realm.user.email if table_realm.user
   td
@@ -9,7 +8,7 @@ tr
   td
     = link_to table_realm.script.title + '.js', user_script_path(table_realm.user, table_realm.script)
   td
-    a href=user_realm_path(table_realm.user, table_realm)
+    a href=display_user_realm_path(table_realm.user, table_realm)
       button.btn.btn-success.btn-block.btn-xs type="button" display
   td
     a href=edit_user_realm_path(table_realm.user, table_realm)

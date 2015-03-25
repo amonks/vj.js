@@ -1,0 +1,21 @@
+.media
+  .media-left
+    a href="#"
+      img.media-object src=user_media_object.gravatar_url alt="avatar"
+  .media-body
+    h2.media-heading
+      = user_media_object.nickname + ' '
+      small user
+
+    - if @user.name
+      p
+        strong name:
+        =< @user.name
+
+    p
+      span.badge = user_media_object.realms.count.to_s
+      = " realm".pluralize user_media_object.realms.count
+      = '  '
+      span.badge = user_media_object.scripts.count.to_s
+      = " script".pluralize user_media_object.scripts.count
+
