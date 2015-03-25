@@ -23,4 +23,8 @@ class User < ActiveRecord::Base
       user.password = Devise.friendly_token[0,20]
     end
   end
+
+  validates :nickname, presence: true,
+                       uniqueness: true,
+                       length: { minimum: 3 }
 end

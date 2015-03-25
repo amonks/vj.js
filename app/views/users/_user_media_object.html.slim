@@ -3,9 +3,10 @@
     a href="#"
       img.media-object src=user_media_object.gravatar_url alt="avatar"
   .media-body
-    h2.media-heading
-      = user_media_object.nickname + ' '
-      small user
+    - if user_media_object.nickname
+      h2.media-heading
+        = user_media_object.nickname + ' '
+        small user
 
     - if @user.name
       p
