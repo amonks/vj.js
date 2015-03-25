@@ -51,13 +51,13 @@ ActiveRecord::Schema.define(version: 20150322000734) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "nickname",               default: "", null: false
     t.string   "provider"
     t.string   "uid"
-    t.string   "nickname"
-    t.string   "name"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["nickname"], name: "index_users_on_nickname", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "realms", "users"
