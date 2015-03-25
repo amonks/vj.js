@@ -1,0 +1,24 @@
+| requirejs.config({
+|   baseUrl: '',
+|   paths: {
+|     // jquery: '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min'
+|     jquery: 'vendor/jquery'
+|   },
+- if @shims
+  |   shim: {
+  - @shims.each do |shim|
+    |     '#{shim.url}': {
+    |       exports: '#{shim.exports}'
+    - if shim.deps
+      |       deps: [
+      - shim.deps.each do |dep|
+        |         '#{dep}',
+      |       ]
+    |     },
+  |   }
+| });
+|
+| requirejs(['#{user_realm_path(@realm.user, @realm)}'],
+|   function(#{@realm.title}) {
+|     #{@realm.title}.init();
+| });
