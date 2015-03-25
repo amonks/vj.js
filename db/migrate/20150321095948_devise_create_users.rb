@@ -34,7 +34,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.timestamps
 
       t.string :nickname,         null: false, default: ""
-
+      t.string :name,             null: false, default: ""
 
     end
 

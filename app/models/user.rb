@@ -26,10 +26,10 @@ class User < ActiveRecord::Base
     end
   end
 
-  validates :nickname, presence: true,
-                       uniqueness: true,
-                       length: { minimum: 3 }
-  validates :email, presence: true,
-                    uniqueness: true
+  # validates :nickname, presence: true,
+  #                      uniqueness: true,
+  #                      length: { minimum: 3 }
+  # validates :email, presence: true,
+  #                   uniqueness: true
 
 end
