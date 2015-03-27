@@ -1,0 +1,31 @@
+table#external-table.table
+  tr#external-header-row
+    th export
+    th url
+    th needs_shim
+    th deps
+    th colspan="1"
+
+  tr#new-external-form.hidden
+    = form_for([@user, @realm, @external]) do |f|
+      - if @external.errors.any?
+        #error_explanation
+          h2
+            => pluralize(@external.errors.count, "error")
+            | prohibited this realm from being saved:
+          ul
+            - @external.errors.full_messages.each do |msg|
+              li = msg
+      td
+        = f.text_field :export
+      td
+        = f.text_field :url
+      td
+        = f.check_box :needs_shim
+      td
+        = f.text_field :deps
+      td
+        = f.submit
+
+  - externals.each do |external|
+    = render partial: "externals/table_external", object: external

@@ -11,7 +11,8 @@ class ScriptsController < ApplicationController
     @script = Script.find_by title: params[:title], user_id: @user.id
     respond_to do |format|
       format.html { render }
-      format.js { render :text => @script.text }
+      format.js { render :text => @script.text,
+                         :content_type => 'text/javascript' }
     end
   end
 

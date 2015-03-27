@@ -9,6 +9,7 @@ class RealmsController < ApplicationController
   def display
     @user = User.find_by nickname: params[:user_nickname]
     @realm = Realm.find_by user_id: @user.id, title: params[:title]
+    @externals = @realm.externals
     @script = Script.find @realm.script_id
     render layout: false
   end
@@ -16,9 +17,15 @@ class RealmsController < ApplicationController
   def show
     @user = User.find_by nickname: params[:user_nickname]
     @realm = Realm.find_by title: params[:title], user_id: @user.id
+    @externals = @realm.externals.all
+    @external = External.new
+
     respond_to do |format|
       format.html { render :file => 'realms/show.html.slim' }
-      format.js { render file: 'realms/launch.js.erb' }
+      format.js {
+        render file: 'realms/launch.js.erb',
+               content_type: 'text/javascript'
+      }
     end
   end
 

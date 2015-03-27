@@ -1,6 +1,7 @@
 class Realm < ActiveRecord::Base
   belongs_to :user
   belongs_to :script
+  has_many :externals
 
   def to_param
     "#{title}"

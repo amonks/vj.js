@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150322000734) do
+ActiveRecord::Schema.define(version: 20150327065518) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "externals", force: :cascade do |t|
+    t.string   "export"
+    t.string   "url"
+    t.boolean  "needs_shim"
+    t.text     "deps"
+    t.integer  "realm_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "realms", force: :cascade do |t|
     t.string   "title"

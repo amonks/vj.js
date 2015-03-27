@@ -1,6 +1,6 @@
 tr
   td
-    = table_realm.title
+    = link_to table_realm.title, user_realm_path(table_realm.user, table_realm)
   td
     = table_realm.user.email if table_realm.user
   td

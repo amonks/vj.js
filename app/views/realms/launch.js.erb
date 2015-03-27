@@ -1,28 +1,30 @@
 requirejs.config({
-  baseUrl: '',
+  baseUrl: '/',
   paths: {
-    // jquery: '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min'
-    jquery: 'vendor/jquery'
+    <% @externals.each do |external| %>
+      <%= "#{external.export}: '#{external.url}',".html_safe %>
+    <% end %>
   },
-  <% if @shims %>
+  <% if @externals %>
     shim: {
-      <% @shims.each do  shim %>
-        <%= "'#{shim.url}': {" %>
-          <%= "exports: '#{shim.exports}'" %>
-          <% if shim.deps %>
-            deps: [
-              <% shim.deps.each do  dep  %>
-                <%= "#{dep}" %>
-              <% end %>
-            ]
-          <% end %>
-        },
+      <% @externals.each do |external| %>
+        <% if external.needs_shim %>
+          <%= "'#{external.export}': {".html_safe %>
+            <%= "export: '#{external.export}',".html_safe %>
+            <% if external.deps %>
+              deps: [
+                <% external.deps.split(',').each do  |dep|  %>
+                  <%= "'#{dep}'".html_safe %>
+                <% end %>
+              ]
+            <% end %>
+          },
+        <% end %>
       <% end %>
     }
   <% end %>
 });
 
-<%= "requirejs(['#{user_realm_path(@realm.user, @realm)}']," %>
-<%= "function(#{@realm.title}) {" %>
+<%= "requirejs(['#{user_script_path(@realm.user, @realm.script)}.js'], function(#{@realm.title}) {".html_safe %>
   <%=  "#{@realm.title}.init();" %>
 });

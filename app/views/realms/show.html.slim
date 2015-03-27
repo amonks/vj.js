@@ -1,5 +1,8 @@
 .page-header
   h1
+    = link_to display_user_realm_path(@user, @realm) do
+      button.btn.btn-success type="button" display
+    = ' '
     = @realm.title + '.js '
     small realm
 
@@ -8,7 +11,12 @@
     strong description
     =< @realm.description
 
-== render partial: 'scripts/panel_script', object: @realm.script
+= render partial: 'scripts/panel_script', object: @realm.script
+
+h2
+  = 'externals '
+  button#new-external.btn.btn-primary new external
+= render partial: 'externals/table', locals: {externals: @externals}
 
 = link_to 'back', user_path(@user)
 = ' | '

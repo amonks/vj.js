@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   post ':user_nickname/scripts' => 'scripts#create', as: "user_script_index"
   post ':user_nickname/realms' => 'realms#create', as: 'user_realm_index'
+  post ':user_nickname/realms/:realm_title/externals' => 'externals#create', as: 'user_realm_externals'
 
   resources :users, only: [:index]
   resources :scripts, only: [:index]
@@ -25,7 +26,13 @@ Rails.application.routes.draw do
               path: '/realms',
               param: :title,
               as: :realm,
-              only: [:show, :edit, :update, :destroy]
+              only: [:show, :edit, :update, :destroy] do
+                resources :externals,
+                          path: '/externals',
+                          param: :export,
+                          as: :external,
+                          only: [:show, :edit, :update, :destroy]
+              end
     resources :scripts,
               path: '',
               param: :title,

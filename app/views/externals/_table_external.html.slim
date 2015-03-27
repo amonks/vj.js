@@ -1,0 +1,13 @@
+tr
+  td
+    = table_external.export
+  td
+    code
+      = table_external.url
+  td
+    = table_external.needs_shim
+  td
+    = table_external.deps
+  td
+    a href=user_realm_external_path(table_external.realm.user, table_external.realm, table_external) data-method="delete" data-confirm="are you sure?"
+      button.btn.btn-danger.btn-block.btn-xs type="button" destroy
