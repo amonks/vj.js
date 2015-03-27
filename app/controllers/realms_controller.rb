@@ -18,7 +18,7 @@ class RealmsController < ApplicationController
     @realm = Realm.find_by title: params[:title], user_id: @user.id
     respond_to do |format|
       format.html { render :file => 'realms/show.html.slim' }
-      format.js { render file: 'realms/launch.js.slim', pretty: true }
+      format.js { render file: 'realms/launch.js.erb' }
     end
   end
 
