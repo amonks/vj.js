@@ -7,12 +7,12 @@ requirejs.config({
   <% if @shims %>
     shim: {
       <% @shims.each do  shim %>
-        '#{shim.url}': {
-          exports: '#{shim.exports}'
+        <%= "'#{shim.url}': {" %>
+          <%= "exports: '#{shim.exports}'" %>
           <% if shim.deps %>
             deps: [
               <% shim.deps.each do  dep  %>
-                '#{dep}',
+                <%= '#{dep}' %>
               <% end %>
             ]
           <% end %>
@@ -22,8 +22,7 @@ requirejs.config({
   <% end %>
 });
 
-requirejs(['#{user_realm_path(@realm.user, @realm)}'],
-  function(#{@realm.title}) {
+<%= "requirejs(['#{user_realm_path(@realm.user, @realm)}']," %>
+<%= 'function(#{@realm.title}) {' %>
     #{@realm.title}.init();
 });
-
