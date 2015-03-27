@@ -12,7 +12,7 @@ requirejs.config({
           <% if shim.deps %>
             deps: [
               <% shim.deps.each do  dep  %>
-                <%= '#{dep}' %>
+                <%= "#{dep}" %>
               <% end %>
             ]
           <% end %>
@@ -23,6 +23,6 @@ requirejs.config({
 });
 
 <%= "requirejs(['#{user_realm_path(@realm.user, @realm)}']," %>
-<%= 'function(#{@realm.title}) {' %>
-    #{@realm.title}.init();
+<%= "function(#{@realm.title}) {" %>
+  <%=  "#{@realm.title}.init();" %>
 });
