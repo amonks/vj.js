@@ -2,14 +2,12 @@ require 'test_helper'
 
 class RealmTest < ActiveSupport::TestCase
   test "should not save without a title" do
-    realm = Realm.new
-    realm.script_id = 1
+    realm = Realm.new script_id: 1
     assert_not realm.save
   end
 
   test "should not save without a script_id" do
-    realm = Realm.new
-    realm.title = "brokenRealm"
+    realm = Realm.new title: "no_title_realm"
     assert_not realm.save
   end
 

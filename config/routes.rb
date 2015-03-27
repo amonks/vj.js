@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
 
-  root 'users#dashboard'
+  root 'welcome#index', as: 'index'
 
   get 'dashboard' => 'users#dashboard', as: 'dashboard'
 
@@ -25,7 +25,7 @@ Rails.application.routes.draw do
               path: '/realms',
               param: :title,
               as: :realm,
-              only: [:new, :show, :edit, :update, :destroy]
+              only: [:show, :edit, :update, :destroy]
     resources :scripts,
               path: '',
               param: :title,
