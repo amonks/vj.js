@@ -1,10 +1,6 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
-
   test "should show index" do
     sign_in User.first
     get :index
@@ -19,12 +15,6 @@ class UsersControllerTest < ActionController::TestCase
     assert_not_nil assigns(:user)
     assert_not_nil assigns(:scripts)
     assert_not_nil assigns(:realms)
-  end
-
-  test "should show me" do
-    sign_in User.first
-    get :me
-    assert_response :success
   end
 
 end

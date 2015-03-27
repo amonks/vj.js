@@ -1,4 +1,7 @@
 class ScriptsController < ApplicationController
+  before_action :authenticate_user!
+
+
   def index
     @scripts = Script.all
   end
@@ -6,7 +9,6 @@ class ScriptsController < ApplicationController
   def show
     @user = User.find_by nickname: params[:user_nickname]
     @script = Script.find_by title: params[:title], user_id: @user.id
-    @realm = current_user.realms.new(script_id: @script.id, title: @script.title)
     respond_to do |format|
       format.html { render }
       format.js { render :text => @script.text }
