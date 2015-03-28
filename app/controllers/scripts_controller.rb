@@ -69,7 +69,7 @@ class ScriptsController < ApplicationController
 
   private
     def script_params
-      params.require(:script).permit(:title, :text)
+      params.require(:script).permit(:title, :text, :readme)
     end
 
 end

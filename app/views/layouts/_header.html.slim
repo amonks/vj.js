@@ -1,7 +1,8 @@
 nav
   .container
     .col-sm-4.navbar-left.vertical-align
-      = render partial: 'users/user_media_object', object: current_user
+      a href=user_path(current_user)
+        img.img-circle src=current_user.gravatar_url alt="avatar"
     .col-sm-8.vertical-align
       #navbar.navbar-collapse.collapse
         ul.nav.navbar-nav.navbar-right

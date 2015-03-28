@@ -11,17 +11,14 @@
     strong description
     =< @realm.description
 
-= render partial: 'scripts/panel_script', object: @realm.script
+.panel.panel-default
+  .panel-heading
+    h1.panel-title
+      = 'externals '
+      button#new-external.btn.btn-primary.btn-sm new external
+  = render partial: 'externals/table', locals: {externals: @externals}
 
-h2
-  = 'externals '
-  button#new-external.btn.btn-primary new external
-= render partial: 'externals/table', locals: {externals: @externals}
+.panel.panel-default
+  .panel-body
+    = render partial: 'scripts/panel_script', object: @realm.script
 
-= link_to 'back', user_path(@user)
-= ' | '
-= link_to 'edit', edit_user_realm_path(@user, @realm)
-= ' | '
-= link_to 'destroy', '#',
-  method: :delete,
-  data: { confirm: 'are you sure?' }

@@ -2,18 +2,22 @@ tr
   td
     = link_to table_script.title + '.js', user_script_path(table_script.user, table_script)
   td
-    = table_script.user.email if table_script.user
+    = link_to table_script.user.nickname, user_path(table_script.user)
   td
     code
-      = table_script.text
-  td
-    = link_to 'raw', user_script_path(table_script.user, table_script) + '.js'
-  td
-    a href=edit_user_script_path(table_script.user, table_script)
-      button.btn.btn-default.btn-block.btn-xs type="button" edit
-  td
-    a href=realmify_user_script_path(table_script.user, table_script)
-      button.btn.btn-default.btn-block.btn-xs type="button" realmify
-  td
-    a href=user_script_path(table_script.user, table_script) data-method="delete" data-confirm="are you sure?"
-      button.btn.btn-danger.btn-block.btn-xs type="button" destroy
+      = table_script.readme
+  / td
+  /   code
+  /     = table_script.text
+  - if current_user = table_script.user
+    td
+      a href=edit_user_script_path(table_script.user, table_script)
+        button.btn.btn-default.btn-block.btn-xs type="button" edit
+    td
+      a href=realmify_user_script_path(table_script.user, table_script)
+        button.btn.btn-info.btn-block.btn-xs type="button" realmify
+    td
+      a href=user_script_path(table_script.user, table_script) data-method="delete" data-confirm="are you sure?"
+        button.btn.btn-danger.btn-block.btn-xs type="button" destroy
+  - else
+    td colspan='3'

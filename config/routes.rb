@@ -4,9 +4,7 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
 
-  root 'welcome#index', as: 'index'
-
-  get 'dashboard' => 'users#dashboard', as: 'dashboard'
+  root 'welcome#index', as: 'dashboard'
 
   post ':user_nickname/scripts' => 'scripts#create', as: "user_script_index"
   post ':user_nickname/realms' => 'realms#create', as: 'user_realm_index'

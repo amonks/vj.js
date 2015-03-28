@@ -17,15 +17,15 @@ table#external-table.table
             - @external.errors.full_messages.each do |msg|
               li = msg
       td
-        = f.text_field :export
+        = f.text_field :export, class: "form-control"
       td
-        = f.text_field :url
+        = f.text_field :url, class: "form-control"
       td
-        = f.check_box :needs_shim
+        = f.check_box :needs_shim, class: "form-control"
       td
-        = f.text_field :deps
+        = f.text_field :deps, class: "form-control"
       td
-        = f.submit
+        = f.submit 'create', class: "form-control btn btn-primary btn-xs"
 
   - externals.each do |external|
     = render partial: "externals/table_external", object: external

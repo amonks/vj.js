@@ -1,0 +1,17 @@
+script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.8/ace.js"
+javascript:
+  $( document ).ready( function() {
+    var readme_editor = ace.edit("readme-editor");
+    readme_editor.setTheme("ace/theme/monokai");
+    readme_editor.getSession().setMode("ace/mode/markdown");
+
+    var script_editor = ace.edit("script-editor");
+    script_editor.setTheme("ace/theme/monokai");
+    script_editor.getSession().setMode("ace/mode/javascript");
+
+    $("form").submit(function( event ) {
+      $("textarea#readme-textarea").val( readme_editor.getSession().getValue() );
+      $("textarea#script-textarea").val( script_editor.getSession().getValue() );
+    });
+  });
+

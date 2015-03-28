@@ -2,17 +2,20 @@ tr
   td
     = link_to table_realm.title, user_realm_path(table_realm.user, table_realm)
   td
-    = table_realm.user.email if table_realm.user
+    = link_to table_realm.user.nickname, user_path(table_realm.user)
   td
     = table_realm.description
   td
     = link_to table_realm.script.title + '.js', user_script_path(table_realm.user, table_realm.script)
-  td
-    a href=display_user_realm_path(table_realm.user, table_realm)
-      button.btn.btn-success.btn-block.btn-xs type="button" display
-  td
-    a href=edit_user_realm_path(table_realm.user, table_realm)
-      button.btn.btn-default.btn-block.btn-xs type="button" edit
-  td
-    a href=user_realm_path(table_realm.user, table_realm) data-method="delete" data-confirm="are you sure?"
-      button.btn.btn-danger.btn-block.btn-xs type="button" destroy
+  - if current_user = table_realm.user
+    td
+      a href=display_user_realm_path(table_realm.user, table_realm)
+        button.btn.btn-success.btn-block.btn-xs type="button" display
+    td
+      a href=edit_user_realm_path(table_realm.user, table_realm)
+        button.btn.btn-default.btn-block.btn-xs type="button" edit
+    td
+      a href=user_realm_path(table_realm.user, table_realm) data-method="delete" data-confirm="are you sure?"
+        button.btn.btn-danger.btn-block.btn-xs type="button" destroy
+  - else
+    td colspan='3'

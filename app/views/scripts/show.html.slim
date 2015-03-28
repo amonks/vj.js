@@ -1,16 +1,2 @@
-h1
-  == @script.title + ' '
-  small script
-
-pre
-  = @script.text
-
-= link_to 'back', user_path(@user)
-= ' | '
-=> link_to 'edit', edit_user_script_path(@user, @script)
-= ' | '
-= link_to 'realmify', realmify_user_script_path(@user, @script)
-= ' | '
-= link_to 'destroy', '#',
-    method: :delete,
-    data: { confirm: 'are you sure?' }
+h1.page-header script
+= render partial: 'panel_script', object: @script

@@ -11,4 +11,5 @@ class Script < ActiveRecord::Base
                     length: { minimum: 3 }
   validates :text,  presence: true,
                     length: { minimum: 3 }
+  validates :readme, presence: true
 end

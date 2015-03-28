@@ -1,8 +1,16 @@
-= render partial: "users/user_media_object", object: @user
+h1.page-header = ' '
+.row
+  .col-lg-4.well
+    = render partial: 'users/user_media_object', object: @user
 
-h2 realms
-= render partial: "realms/table", locals: {realms: @realms}
+  .col-lg-8
+    h2 realms
+    = render partial: "realms/table", locals: {realms: @realms}
 
-h2 scripts
-= render partial: "scripts/table", locals: {scripts: @scripts}
-
+.row
+  h2
+    | scripts #{' '}
+    - if current_user == @user
+      a href=new_user_script_path(@user)
+        button.btn.btn-primary new script
+  = render partial: "scripts/table", locals: {scripts: @scripts}
