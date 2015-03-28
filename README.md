@@ -2,9 +2,8 @@
 
 ## [wife.cool](http://www.wife.cool)
 
-## todo
+collaborative vjing and performance engine, in the browser
 
-*   update tests
-*   block editing other people's shit
-*   validations at pg level
-*   form css
+see issues for todos
+
+
