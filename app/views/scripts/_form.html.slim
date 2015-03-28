@@ -20,7 +20,7 @@
 
   .form-group#readme-editor-group
     = f.label :readme, class: "control-label"
-    = "<div id='readme-editor' >#{@script.readme}</div>".html_safe
+    = "<div id='readme-editor' >#{@script.readme.to_s}</div>".html_safe
 
   .form-group.hidden
     = f.label :text, class: "control-label"
@@ -28,7 +28,7 @@
 
   .form-group#script-editor-group
     = f.label :text, class: "control-label"
-    = "<div id='script-editor' >#{@script.text}</div>".html_safe
+    = "<div id='script-editor' >#{@script.text.to_s}</div>".html_safe
 
   .form-group
     = f.submit 'submit', class: "control-label btn-primary btn"
