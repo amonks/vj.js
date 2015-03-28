@@ -6,4 +6,6 @@ html
   body
     = render 'layouts/header'
     = render 'layouts/container'
+- if @form
+  = render partial: 'layouts/form_scripts'
 

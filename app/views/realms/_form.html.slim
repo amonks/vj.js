@@ -10,20 +10,20 @@
           li
             = msg
 
-  p
-    = f.label :title
-    br
-    = f.text_field :title
+  .form-group
+    = f.label :title, class: "control-label"
+    = f.text_field :title, class: "form-control"
 
-  p
-    = f.label :description
-    br
-    = f.text_area :description
+  .form-group
+    = f.label :description, class: "control-label"
+    = f.text_area :description, class: "form-control"
 
-  p
-    = f.label :script_id
-    br
-    = f.text_field :script_id
+  .form-group
+    = f.label :script_id, class: "control-label"
+    = f.text_field :script_id, class: "form-control"
 
-  p
-    = f.submit
+  .form-group
+    = f.submit 'submit', class: "control-label btn btn-primary"
+    = ' '
+    = link_to dashboard_path do
+      button.btn.btn-default back

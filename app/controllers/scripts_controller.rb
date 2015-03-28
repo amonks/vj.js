@@ -17,11 +17,13 @@ class ScriptsController < ApplicationController
   end
 
   def new
+    @form = true
     @user = User.find_by nickname: params[:user_nickname]
     @script = @user.scripts.new
   end
 
   def edit
+    @form = true
     @user = User.find_by nickname: params[:user_nickname]
     @script = Script.find_by title: params[:title], user_id: @user.id
   end
