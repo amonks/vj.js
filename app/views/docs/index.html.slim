@@ -1,0 +1,6 @@
+.page-header
+  h1 Docs
+
+ol
+  - @docs.each do |doc|
+    li = link_to doc.title, doc_path(doc)

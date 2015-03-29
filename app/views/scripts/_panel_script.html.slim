@@ -4,7 +4,7 @@
     = ' / '
     = link_to panel_script.title, user_script_path(panel_script.user, panel_script)
     = ' '
-    - if current_user = panel_script.user
+    - if current_user.can_modify? panel_script
       = ' '
       = link_to  edit_user_script_path(panel_script.user, panel_script) do
         button.btn.btn-default.btn-sm edit
@@ -16,10 +16,21 @@
           method: :delete,
           data: { confirm: 'are you sure?' } do
             button.btn.btn-danger.btn-sm destroy
+
 .col-lg-6
   .panel
     .panel-body
       = markdown(panel_script.readme)
+
 .col-lg-6
-  / pre
   = highlight panel_script.text
+
+.col-sm-12
+  .panel.panel-default
+    .panel-heading
+      h1.panel-title
+        = 'externals '
+        - if current_user.can_modify? panel_script
+          button#new-external.btn.btn-primary.btn-sm new external
+    = render partial: 'externals/table', object: panel_script
+

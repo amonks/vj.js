@@ -36,7 +36,7 @@ class ScriptsControllerTest < ActionController::TestCase
   test "should create a new script" do
     sign_in User.first
     assert_difference('Script.count') do
-      post :create, { user_nickname: 'amonks', script: {title: "newscript", text: "new script"} }
+      post :create, { user_nickname: 'amonks', script: {title: "newscript", text: "new script", readme: "new script readme"} }
     end
     assert_redirected_to dashboard_path
   end

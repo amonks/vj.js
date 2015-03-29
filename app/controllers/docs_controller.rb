@@ -9,6 +9,13 @@ class DocsController < ApplicationController
     @doc = Doc.find_by title: params[:title]
   end
 
+  def new
+    @form = true
+    @doc = Doc.new
+
+    authorize_action_for @doc
+  end
+
   def edit
     @doc = Doc.find_by title: params[:title]
     authorize_action_for @doc

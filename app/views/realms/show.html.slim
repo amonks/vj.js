@@ -6,18 +6,6 @@
     = @realm.title + '.js '
     small realm
 
-- if @realm.description
-  p
-    strong description
-    =< @realm.description
-
-.panel.panel-default
-  .panel-heading
-    h1.panel-title
-      = 'externals '
-      button#new-external.btn.btn-primary.btn-sm new external
-  = render partial: 'externals/table', locals: {externals: @externals}
-
 .panel.panel-default
   .panel-body
     = render partial: 'scripts/panel_script', object: @realm.script

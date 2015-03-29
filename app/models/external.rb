@@ -1,8 +1,13 @@
 class External < ActiveRecord::Base
-  belongs_to :realm
+  include Authority::Abilities
+  belongs_to :script
 
   def to_param
     "#{export}"
+  end
+
+  def path
+    script.path
   end
 
   validates :export, presence: true,

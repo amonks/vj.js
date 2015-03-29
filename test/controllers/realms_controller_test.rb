@@ -9,6 +9,23 @@ class RealmsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:realms)
   end
 
+  test "should display a realm" do
+    sign_in User.first
+    get :display, {user_nickname: 'amonks', title: 'realmOne'}
+    assert_response :success
+    assert_not_nil assigns(:user)
+    assert_not_nil assigns(:realm)
+    assert_not_nil assigns(:script)
+  end
+
+  test "should show a realm" do
+    sign_in User.first
+    get :show, {user_nickname: 'amonks', title: 'realmOne'}
+    assert_response :success
+    assert_not_nil assigns(:user)
+    assert_not_nil assigns(:realm)
+  end
+
   test "should show edit realm form" do
     sign_in User.first
     get :edit, {user_nickname: 'amonks', title: 'realmOne'}
@@ -21,7 +38,7 @@ class RealmsControllerTest < ActionController::TestCase
   test "should create a new realm" do
     sign_in User.first
     assert_difference('Realm.count') do
-      post :create, {user_nickname: 'amonks', realm: {title: "newrealm", description: "cool new realm", script_id: 1}}
+      post :create, {user_nickname: 'amonks', realm: {title: "newrealm", script_id: 1}}
     end
     assert_redirected_to dashboard_path
   end

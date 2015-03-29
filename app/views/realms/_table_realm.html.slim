@@ -4,8 +4,6 @@ tr
   td
     = link_to table_realm.user.nickname, user_path(table_realm.user)
   td
-    = table_realm.description
-  td
     = link_to table_realm.script.title + '.js', user_script_path(table_realm.user, table_realm.script)
   - if current_user = table_realm.user
     td

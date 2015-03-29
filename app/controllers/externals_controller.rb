@@ -3,13 +3,13 @@ class ExternalsController < ApplicationController
 
   def create
     @user = User.find_by nickname: params[:user_nickname]
-    @realm = @user.realms.find_by title: params[:realm_title]
-    @external = @realm.externals.create(external_params)
+    @script = @user.scripts.find_by title: params[:script_title]
+    @external = @script.externals.create(external_params)
 
-    authorize_action_for @realm
+    authorize_action_for @script
 
     if @external.save
-      redirect_to user_realm_path(@user, @realm)
+      redirect_to @external.path
     else
       redirect_to dashboard_url
     end
@@ -17,13 +17,13 @@ class ExternalsController < ApplicationController
 
   def update
     @user = User.find_by nickname: params[:user_nickname]
-    @realm = @user.realms.find_by title: params[:realm_title]
-    @external = @realm.externals.find_by export: params[:export]
+    @script = @user.scripts.find_by title: params[:script_title]
+    @external = @script.externals.find_by export: params[:export]
 
-    authorize_action_for @realm
+    authorize_action_for @script
 
     if @external.update(external_params)
-      redirect_to user_realm_path(@user, @realm)
+      redirect_to @external.path
     else
       render 'edit'
     end
@@ -31,16 +31,18 @@ class ExternalsController < ApplicationController
 
   def destroy
     @user = User.find_by nickname: params[:user_nickname]
-    @realm = @user.realms.find_by title: params[:realm_title]
-    @external = @realm.externals.find_by export: params[:export]
+    @script = @user.scripts.find_by title: params[:script_title]
+    @external = @script.externals.find_by export: params[:export]
+
     @external.destroy
 
-    authorize_action_for @realm
+    authorize_action_for @script
 
-    redirect_to user_realm_path(@user, @realm)
+    redirect_to @script.path
   end
 
   private
+
     def external_params
       params.require(:external).permit(:export, :url, :needs_shim, :deps )
     end

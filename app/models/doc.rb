@@ -1,6 +1,12 @@
 class Doc < ActiveRecord::Base
+  include Authority::Abilities
+
   def to_param
-    "#{number}-#{title}"
+    "#{title}"
+  end
+
+  def self.path
+    "docs/#{title}"
   end
 
   validates :title,  presence: true,

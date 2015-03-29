@@ -5,7 +5,7 @@ class CreateExternals < ActiveRecord::Migration
       t.string :url
       t.boolean :needs_shim
       t.text :deps
-      t.integer :realm_id
+      t.references :scripts, index: true
 
       t.timestamps null: false
     end

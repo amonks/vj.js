@@ -1,7 +1,6 @@
 class RealmsController < ApplicationController
   before_action :authenticate_user!
 
-
   def index
     @realms = Realm.all
   end
@@ -9,7 +8,6 @@ class RealmsController < ApplicationController
   def display
     @user = User.find_by nickname: params[:user_nickname]
     @realm = Realm.find_by user_id: @user.id, title: params[:title]
-    @externals = @realm.externals
     @script = Script.find @realm.script_id
     render layout: false
   end
@@ -17,8 +15,6 @@ class RealmsController < ApplicationController
   def show
     @user = User.find_by nickname: params[:user_nickname]
     @realm = Realm.find_by title: params[:title], user_id: @user.id
-    @externals = @realm.externals.all
-    @external = External.new
 
     respond_to do |format|
       format.html { render :file => 'realms/show.html.slim' }
@@ -28,11 +24,6 @@ class RealmsController < ApplicationController
       }
     end
   end
-
-  # not exposed, using scripts#realmify instead
-  # def new
-  #   @realm = Realm.new
-  # end
 
   def edit
     @user = User.find_by nickname: params[:user_nickname]
@@ -79,8 +70,9 @@ class RealmsController < ApplicationController
   end
 
   private
+
     def realm_params
-      params.require(:realm).permit(:user_nickname, :title, :description, :script_id)
+      params.require(:realm).permit(:user_nickname, :title, :script_id)
     end
 
 end

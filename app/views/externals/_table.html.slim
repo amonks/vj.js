@@ -7,14 +7,14 @@ table#external-table.table
     th colspan="1"
 
   tr#new-external-form.hidden
-    = form_for([@user, @realm, @external]) do |f|
-      - if @external.errors.any?
+    = form_for([table.user, table, external = table.externals.new]) do |f|
+      - if external.errors.any?
         #error_explanation
           h2
             => pluralize(@external.errors.count, "error")
             | prohibited this realm from being saved:
           ul
-            - @external.errors.full_messages.each do |msg|
+            - external.errors.full_messages.each do |msg|
               li = msg
       td
         = f.text_field :export, class: "form-control"
@@ -27,5 +27,5 @@ table#external-table.table
       td
         = f.submit 'create', class: "form-control btn btn-primary btn-xs"
 
-  - externals.each do |external|
+  - table.externals.each do |external|
     = render partial: "externals/table_external", object: external

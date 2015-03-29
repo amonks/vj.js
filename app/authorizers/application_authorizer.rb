@@ -1,6 +1,21 @@
 # Other authorizers should subclass this one
 class ApplicationAuthorizer < Authority::Authorizer
 
+  def self.viewable_by?(user)
+    true
+  end
+  def viewable_by?(user)
+    true
+  end
+
+  def self.modifiable_by?(user)
+    true
+  end
+  def modifiable_by?(user)
+    user == resource.try(:user) || user.admin?
+  end
+
+
   # Any class method from Authority::Authorizer that isn't overridden
   # will call its authorizer's default method.
   #
@@ -10,7 +25,7 @@ class ApplicationAuthorizer < Authority::Authorizer
   def self.default(adjective, user)
     # 'Whitelist' strategy for security: anything not explicitly allowed is
     # considered forbidden.
-    false
+    user.admin?
   end
 
 end

@@ -5,9 +5,11 @@ one:
   title: testscript
   user_id: 1
   text: hello
+  readme: stuff
 
 two:
   id: 2
   title: testscripttwo
   user_id: 2
   text: hello again
+  readme: other stuff

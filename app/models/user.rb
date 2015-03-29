@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  include Authority::Abilities
+  include Authority::UserAbilities
   include Gravtastic
   gravtastic
 
@@ -8,6 +8,10 @@ class User < ActiveRecord::Base
 
   def to_param
     "#{nickname}"
+  end
+
+  def self.path
+    "#{self.path}"
   end
 
   # Include default devise modules. Others available are:

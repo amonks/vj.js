@@ -9,7 +9,7 @@ tr
   / td
   /   code
   /     = table_script.text
-  - if current_user = table_script.user
+  - if current_user.can_modify? table_script
     td
       a href=edit_user_script_path(table_script.user, table_script)
         button.btn.btn-default.btn-block.btn-xs type="button" edit

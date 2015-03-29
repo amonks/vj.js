@@ -1,0 +1,12 @@
+script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.8/ace.js"
+javascript:
+  $( document ).ready( function() {
+    var editor = ace.edit("text-editor");
+    editor.setTheme("ace/theme/solarized_light");
+    editor.getSession().setMode("ace/mode/javascript");
+
+    $("form").submit(function( event ) {
+      $("textarea#text-textarea").val( editor.getSession().getValue() );
+    });
+  });
+

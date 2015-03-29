@@ -1,10 +1,15 @@
 class Realm < ActiveRecord::Base
+  include Authority::Abilities
+
   belongs_to :user
   belongs_to :script
-  has_many :externals
 
   def to_param
     "#{title}"
+  end
+
+  def self.path
+    "#{self.user.nickname}/#{self.title}"
   end
 
   validates :title, presence: true,

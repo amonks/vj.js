@@ -6,11 +6,12 @@ Rails.application.routes.draw do
 
   root 'welcome#index', as: 'dashboard'
 
-  resources :docs
+  resources :docs, param: :title
 
   post ':user_nickname/scripts' => 'scripts#create', as: "user_script_index"
   post ':user_nickname/realms' => 'realms#create', as: 'user_realm_index'
   post ':user_nickname/realms/:realm_title/externals' => 'externals#create', as: 'user_realm_externals'
+  post ':user_nickname/:script_title/externals' => 'externals#create', as: 'user_script_externals'
 
   resources :users, only: [:index]
   resources :scripts, only: [:index]
@@ -26,18 +27,18 @@ Rails.application.routes.draw do
               path: '/realms',
               param: :title,
               as: :realm,
-              only: [:show, :edit, :update, :destroy] do
+              only: [:show, :edit, :update, :destroy]
+    resources :scripts,
+              path: '',
+              param: :title,
+              only: [:new, :show, :edit, :update, :destroy],
+              as: :script do
                 resources :externals,
                           path: '/externals',
                           param: :export,
                           as: :external,
                           only: [:show, :edit, :update, :destroy]
               end
-    resources :scripts,
-              path: '',
-              param: :title,
-              only: [:new, :show, :edit, :update, :destroy],
-              as: :script
   end
 
   get ':user_nickname/:title/realmify' => 'scripts#realmify', as: 'realmify_user_script'

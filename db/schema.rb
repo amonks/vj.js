@@ -11,20 +11,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150328203600) do
+ActiveRecord::Schema.define(version: 20150329052351) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "docs", force: :cascade do |t|
+    t.string   "title",      default: "", null: false
+    t.string   "number",     default: "", null: false
+    t.text     "text",                    null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "docs", ["number"], name: "index_docs_on_number", unique: true, using: :btree
+  add_index "docs", ["title"], name: "index_docs_on_title", unique: true, using: :btree
 
   create_table "externals", force: :cascade do |t|
     t.string   "export"
     t.string   "url"
     t.boolean  "needs_shim"
     t.text     "deps"
-    t.integer  "realm_id"
+    t.integer  "scripts_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "externals", ["scripts_id"], name: "index_externals_on_scripts_id", using: :btree
 
   create_table "realms", force: :cascade do |t|
     t.string   "title"
@@ -66,6 +79,7 @@ ActiveRecord::Schema.define(version: 20150328203600) do
     t.string   "name"
     t.string   "provider"
     t.string   "uid"
+    t.boolean  "admin"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
