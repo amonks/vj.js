@@ -6,6 +6,8 @@ class ExternalsController < ApplicationController
     @realm = @user.realms.find_by title: params[:realm_title]
     @external = @realm.externals.create(external_params)
 
+    authorize_action_for @realm
+
     if @external.save
       redirect_to user_realm_path(@user, @realm)
     else
@@ -17,6 +19,8 @@ class ExternalsController < ApplicationController
     @user = User.find_by nickname: params[:user_nickname]
     @realm = @user.realms.find_by title: params[:realm_title]
     @external = @realm.externals.find_by export: params[:export]
+
+    authorize_action_for @realm
 
     if @external.update(external_params)
       redirect_to user_realm_path(@user, @realm)
@@ -30,6 +34,8 @@ class ExternalsController < ApplicationController
     @realm = @user.realms.find_by title: params[:realm_title]
     @external = @realm.externals.find_by export: params[:export]
     @external.destroy
+
+    authorize_action_for @realm
 
     redirect_to user_realm_path(@user, @realm)
   end

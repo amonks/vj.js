@@ -20,6 +20,7 @@ gem 'therubyracer', platforms: :ruby
 gem 'dotenv-rails', :groups => [:development, :test]
 gem 'devise'
 gem 'gravtastic'
+gem 'authority'
 gem 'kramdown'
 gem 'coderay'
 gem 'omniauth'

@@ -37,11 +37,15 @@ class RealmsController < ApplicationController
   def edit
     @user = User.find_by nickname: params[:user_nickname]
     @realm = Realm.find_by title: params[:title], user_id: @user.id
+
+    authorize_action_for @realm
   end
 
   def create
     @user = User.find_by nickname: params[:user_nickname]
     @realm = @user.realms.create(realm_params)
+
+    authorize_action_for @realm
 
     if @realm.save
       redirect_to dashboard_path
@@ -54,6 +58,8 @@ class RealmsController < ApplicationController
     @user = User.find_by nickname: params[:user_nickname]
     @realm = Realm.find_by title: params[:title], user_id: @user.id
 
+    authorize_action_for @realm
+
     if @realm.update(realm_params)
       redirect_to dashboard_path
     else
@@ -64,6 +70,9 @@ class RealmsController < ApplicationController
   def destroy
     @user = User.find_by nickname: params[:user_nickname]
     @realm = Realm.find_by title: params[:title], user_id: @user.id
+
+    authorize_action_for @realm
+
     @realm.destroy
 
     redirect_to dashboard_path

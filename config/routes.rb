@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   root 'welcome#index', as: 'dashboard'
 
+  resources :docs
+
   post ':user_nickname/scripts' => 'scripts#create', as: "user_script_index"
   post ':user_nickname/realms' => 'realms#create', as: 'user_realm_index'
   post ':user_nickname/realms/:realm_title/externals' => 'externals#create', as: 'user_realm_externals'
