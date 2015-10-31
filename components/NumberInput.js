@@ -3,29 +3,27 @@ import React, { Component, PropTypes } from 'react'
 class NumberInput extends Component {
   constructor (props, context) {
     super(props, context)
-    this.state = {
-      inputs: this.props.inputs || 0
-    }
   }
 
   handleChange (event) {
-    this.props.changeValue(Number(event.target.value))
+    this.props.setValue(this.props.outlet, Number(event.target.value))
   }
 
   render () {
-    const { inputs } = this.props
+    const { number } = this.props
 
     return (
-      <div>
-        <input type='number' value={inputs} onChange={this.handleChange.bind(this)}/>
+      <div className='number-input'>
+        <input type='number' value={number} onChange={this.handleChange.bind(this)}/>
       </div>
     )
   }
 }
 
 NumberInput.propTypes = {
-  inputs: PropTypes.number.isRequired,
-  changeValue: PropTypes.func.isRequired
+  number: PropTypes.number.isRequired,
+  outlet: PropTypes.record.isRequired,
+  setValue: PropTypes.func.isRequired
 }
 
 export default NumberInput

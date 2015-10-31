@@ -1,1 +1,1 @@
-export const CHANGE_VALUE = 'CHANGE_VALUE'
+export const SET_VALUE = 'SET_VALUE'

@@ -1,8 +1,12 @@
 import { combineReducers } from 'redux'
-import inputs from './inputs'
+import outlets from './outlets'
+import mappings from './mappings'
+import hierarchy from './hierarchy'
 
 const rootReducer = combineReducers({
-  inputs
+  outlets,
+  mappings,
+  hierarchy
 })
 
 export default rootReducer

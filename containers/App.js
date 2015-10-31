@@ -1,38 +1,50 @@
 import React, { Component, PropTypes } from 'react'
+import ImmutablePropTypes from 'react-immutable-proptypes'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+
+// import * as HierarchyActions from '../actions/hierarchy'
+import * as OutletActions from '../actions/outlets'
+// import * as MappingActions from '../actions/mappings'
 
 import NumberDisplay from '../components/NumberDisplay'
 import NumberInput from '../components/NumberInput'
 
-import * as InputActions from '../actions/inputs'
-
 class App extends Component {
   render () {
-    const { inputs, actions } = this.props
-    return (
-      <div>
-        <NumberDisplay inputs={inputs} />
-        <NumberInput changeValue={actions.changeValue} inputs={inputs} />
-      </div>
-    )
+    const { actions, hierarchy, outlets, mappings } = this.props
+    const out = traverseHierarchy(actions, hierarchy, outlets, mappings)
+    return out
   }
 }
 
 App.propTypes = {
-  inputs: PropTypes.number.isRequired,
-  actions: PropTypes.object.isRequired
+  // TODO: typecheck members
+  actions: PropTypes.object.isRequired,
+  hierarchy: ImmutablePropTypes.map.isRequired,
+  outlets: ImmutablePropTypes.map.isRequired,
+  mappings: ImmutablePropTypes.list.isRequired
+}
+
+function traverseHierarchy (actions, hierarchy, outlets, mappings) {
+  // TODO: parse and render the hierarchy, return that
+  return (
+    <div>
+      <NumberDisplay number={5} />
+      <NumberInput changeValue={actions.changeValue} number={5} />
+    </div>
+  )
 }
 
 function mapStateToProps (state) {
   return {
-    inputs: state.inputs
+    outlets: state.outlets
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    actions: bindActionCreators(InputActions, dispatch)
+    actions: bindActionCreators(OutletActions, dispatch)
   }
 }
 
