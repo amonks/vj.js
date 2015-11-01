@@ -1,4 +1,9 @@
-import { SET_OUTLET } from '../constants/ActionTypes'
+import {
+  SET_OUTLET,
+  CREATE_OUTLET,
+  DESTROY_OUTLET
+} from '../constants/ActionTypes'
+
 import Immutable from 'immutable'
 
 const initialState = Immutable.Map({
@@ -8,8 +13,11 @@ const initialState = Immutable.Map({
 export default function outlets (state = initialState, action) {
   switch (action.type) {
     case SET_OUTLET:
-    debugger
-      return state.outlets.set(action.outlet, action.value)
+      return state.set(action.outlet, action.value)
+    case CREATE_OUTLET:
+      return state
+    case DESTROY_OUTLET:
+      return state
     default:
       return state
   }

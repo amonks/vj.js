@@ -1,4 +1,8 @@
-import { SET_VALUE } from '../constants/ActionTypes'
+import {
+  CREATE_MAPPING,
+  DESTROY_MAPPING,
+  SET_MAPPING
+} from '../constants/ActionTypes'
 import Immutable from 'immutable'
 
 const initialState = Immutable.Map({
@@ -6,11 +10,14 @@ const initialState = Immutable.Map({
 })
 
 export default function mappings (state = initialState, action) {
-  // switch (action.type) {
-  //   case SET_VALUE:
-  //     return state
-  //   default:
-  //     return state
-  // }
-  return state
+  switch (action.type) {
+    case CREATE_MAPPING:
+      return state
+    case DESTROY_MAPPING:
+      return state
+    case SET_MAPPING:
+      return state
+    default:
+      return state
+  }
 }

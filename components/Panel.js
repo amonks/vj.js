@@ -1,23 +1,21 @@
-import React, { PropTypes, Component } from 'react'
+import React, { Component } from 'react'
 
-class NumberDisplay extends Component {
+class Panel extends Component {
   constructor (props, context) {
     super(props, context)
   }
 
   render () {
-    const { number } = this.props
-
     return (
-      <div className='number-display'>
-        {number}
+      <div className='number-display panel'>
+        {this.props.children}
       </div>
     )
   }
 }
 
-NumberDisplay.propTypes = {
-  number: PropTypes.number.isRequired
+Panel.propTypes = {
+  children: React.PropTypes.arrayOf(React.PropTypes.element)
 }
 
-export default NumberDisplay
+export default Panel

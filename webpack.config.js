@@ -20,7 +20,10 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.js$/,
-      loaders: ['babel'],
+      loader: 'babel',
+      query: {
+        optional: 'es7.decorators'
+      },
       exclude: /node_modules/,
       include: __dirname
     }, {
