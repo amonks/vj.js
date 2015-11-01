@@ -6,7 +6,7 @@ class NumberInput extends Component {
   }
 
   handleChange (event) {
-    this.props.setValue(this.props.outlet, Number(event.target.value))
+    this.props.setOutlet(this.props.outlet, Number(event.target.value))
   }
 
   render () {
@@ -22,8 +22,8 @@ class NumberInput extends Component {
 
 NumberInput.propTypes = {
   number: PropTypes.number.isRequired,
-  outlet: PropTypes.record.isRequired,
-  setValue: PropTypes.func.isRequired
+  outlet: PropTypes.string.isRequired,
+  setOutlet: PropTypes.func.isRequired
 }
 
 export default NumberInput

@@ -46,7 +46,7 @@ state = {
   ],
 
   outlets: {
-    'uuid d': 0,
+    'uuid c': 0,
   },
 
   mappings: {

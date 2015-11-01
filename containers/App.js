@@ -21,24 +21,31 @@ class App extends Component {
 App.propTypes = {
   // TODO: typecheck members
   actions: PropTypes.object.isRequired,
-  hierarchy: ImmutablePropTypes.map.isRequired,
+  hierarchy: ImmutablePropTypes.list.isRequired,
   outlets: ImmutablePropTypes.map.isRequired,
-  mappings: ImmutablePropTypes.list.isRequired
+  mappings: ImmutablePropTypes.map.isRequired
 }
 
 function traverseHierarchy (actions, hierarchy, outlets, mappings) {
   // TODO: parse and render the hierarchy, return that
+  const number = outlets.get('910d32d9-0ee7-4065-874b-679f8fdfcc82')
   return (
     <div>
-      <NumberDisplay number={5} />
-      <NumberInput changeValue={actions.changeValue} number={5} />
+      <NumberDisplay number={number} />
+      <NumberInput
+        setOutlet={actions.setOutlet}
+        outlet={'910d32d9-0ee7-4065-874b-679f8fdfcc82'}
+        number={number}
+      />
     </div>
   )
 }
 
 function mapStateToProps (state) {
   return {
-    outlets: state.outlets
+    outlets: state.outlets,
+    hierarchy: state.hierarchy,
+    mappings: state.mappings
   }
 }
 
