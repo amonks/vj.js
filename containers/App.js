@@ -3,9 +3,9 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-// import * as HierarchyActions from '../actions/hierarchy'
+import * as HierarchyActions from '../actions/hierarchy'
 import * as OutletActions from '../actions/outlets'
-// import * as MappingActions from '../actions/mappings'
+import * as MappingActions from '../actions/mappings'
 
 class App extends Component {
   render () {
@@ -33,7 +33,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    actions: bindActionCreators(OutletActions, dispatch)
+    actions: bindActionCreators({...OutletActions, ...HierarchyActions, ...MappingActions}, dispatch)
   }
 }
 

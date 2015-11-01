@@ -5,9 +5,14 @@ class Panel extends Component {
     super(props, context)
   }
 
+  handleChange () {
+    this.props.createHierarchyNode('NumberDisplay', this.props.id)
+  }
+
   render () {
     return (
       <div className='number-display panel'>
+        <button onClick={this.handleChange.bind(this)} />
         {this.props.children}
       </div>
     )
@@ -15,7 +20,9 @@ class Panel extends Component {
 }
 
 Panel.propTypes = {
-  children: React.PropTypes.arrayOf(React.PropTypes.element)
+  children: React.PropTypes.arrayOf(React.PropTypes.element).isRequired,
+  id: React.PropTypes.string.isRequired,
+  createHierarchyNode: React.PropTypes.func.isRequired
 }
 
 export default Panel

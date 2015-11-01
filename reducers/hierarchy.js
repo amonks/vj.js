@@ -8,14 +8,7 @@ import UUID from 'node-uuid'
 import Immutable from 'immutable'
 
 import nodes from '../nodes/nodes'
-
-// const initialState = new HierarchyNode({
-//   id: 'da97a90c-84ec-441b-8e3c-174fdb03ba2b',
-//   type: 'NumberInput',
-//   outlets: Immutable.Map({
-//     '910d32d9-0ee7-4065-874b-679f8fdfcc82': 'number'
-//   })
-// })
+import buildNode from '../nodes/buildNode'
 
 const initialState = new nodes['Panel']({
   key: '9f4eccd3-b9a4-4cd6-ab61-b351e4b30b55',
@@ -35,14 +28,29 @@ const initialState = new nodes['Panel']({
   ])
 })
 
+function addChild (state, parent, child) {
+  console.log('gonna add a child.')
+  console.log('state:', state)
+  console.log('parent:', parent)
+  console.log('child:', child)
+  if (state.key === parent) {
+    const newState = state.updateIn(['children'], val => val.push(child))
+    console.log('new state:', newState)
+    return newState
+  } else {
+    // TODO check the children, try aagin
+    return state
+  }
+}
+
 export default function outlets (state = initialState, action) {
   switch (action.type) {
     case CREATE_HIERARCHY_NODE:
-      const parent = state.findNodeByKey(action.parent)
-      parent.children.push(new (nodes[action.node])({
+      const node = new (nodes[action.node])({
         key: UUID.v4()
-      }))
-      return state
+      })
+      const newState = addChild(state, action.parent, node)
+      return newState
     case DESTROY_HIERARCHY_NODE:
       return state
     case MOVE_HIERARCHY_NODE:
