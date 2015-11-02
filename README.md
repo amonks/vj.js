@@ -26,14 +26,16 @@ state = {
         key: 'da97a90c-84ec-441b-8e3c-174fdb03ba2b',
         type: 'NumberInput',
         outlets: Immutable.Map({
-          '910d32d9-0ee7-4065-874b-679f8fdfcc82': 'number'
+          '910d32d9-0ee7-4065-874b-679f8fdfcc82':
+            'number'
         })
       }),
       new HierarchyNode({
         key: '7cedebc1-dc1d-4cfd-9eab-51b36ea880f4',
         type: 'NumberDisplay',
         inlets: Immutable.Map({
-          'd46e8dbb-1ce7-486c-8158-5df4724672a0': 'number'
+          'd46e8dbb-1ce7-486c-8158-5df4724672a0':
+            'number'
         })
       })
     ])

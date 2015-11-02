@@ -6,6 +6,8 @@ export default function (actions, outlets, mappings) {
   if (this.inlets && this.inlets.size > 0) {
     this.inlets.map((v, k) => props[k] = outlets.get(mappings.get(v)))
   }
+  props['destroyThis'] = actions.destroyHierarchyNode
+
   if (this.outlets && this.outlets.size > 0) {
     this.outlets.map((v, k) => {
       props[k + 'Outlet'] = v
@@ -20,8 +22,9 @@ export default function (actions, outlets, mappings) {
       .map(child => child.render(actions, outlets, mappings))
       .toArray()
 
-    props['createHierarchyNode'] = actions.createHierarchyNode
+    props['createChild'] = actions.createHierarchyNode
   }
+
   const node = React.createElement(components[this.type], props, children)
 
   return node

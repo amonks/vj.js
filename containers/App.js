@@ -10,8 +10,7 @@ import * as MappingActions from '../actions/mappings'
 class App extends Component {
   render () {
     const { actions, hierarchy, outlets, mappings } = this.props
-    const out = hierarchy.render(actions, outlets, mappings)
-    return out
+    return hierarchy.render(actions, outlets, mappings)
   }
 }
 

@@ -8,7 +8,6 @@ import UUID from 'node-uuid'
 import Immutable from 'immutable'
 
 import nodes from '../nodes/nodes'
-import buildNode from '../nodes/buildNode'
 
 const initialState = new nodes['Panel']({
   key: '9f4eccd3-b9a4-4cd6-ab61-b351e4b30b55',
@@ -29,17 +28,32 @@ const initialState = new nodes['Panel']({
 })
 
 function addChild (state, parent, child) {
-  console.log('gonna add a child.')
-  console.log('state:', state)
-  console.log('parent:', parent)
-  console.log('child:', child)
   if (state.key === parent) {
-    const newState = state.updateIn(['children'], val => val.push(child))
-    console.log('new state:', newState)
-    return newState
+    const newChildren = state.children.push(child)
+    return state.set('children', newChildren)
   } else {
-    // TODO check the children, try aagin
-    return state
+    if (state.children) {
+      const newChildren = state.children
+        .map(childState => addChild(childState, parent, child))
+      return state.set('children', newChildren)
+    } else {
+      return state
+    }
+  }
+}
+
+function removeNode (state, id) {
+  if (state.key === id) {
+    return undefined
+  } else {
+    if (state.children) {
+      const newChildren = state.children
+        .map(child => removeNode(child, id))
+        .filter(child => child !== undefined)
+      return state.set('children', newChildren)
+    } else {
+      return state
+    }
   }
 }
 
@@ -49,10 +63,18 @@ export default function outlets (state = initialState, action) {
       const node = new (nodes[action.node])({
         key: UUID.v4()
       })
-      const newState = addChild(state, action.parent, node)
-      return newState
+      if (node.outlets) {
+        // add the outlets
+      }
+      return addChild(state, action.parent, node)
     case DESTROY_HIERARCHY_NODE:
-      return state
+      const stateWithNodeRemoved = removeNode(state, action.id)
+      if (stateWithNodeRemoved === undefined) {
+        return new nodes['Panel']({
+          key: UUID.v4()
+        })
+      }
+      return stateWithNodeRemoved
     case MOVE_HIERARCHY_NODE:
       return state
     default:
