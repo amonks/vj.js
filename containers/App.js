@@ -9,8 +9,8 @@ import * as MappingActions from '../actions/mappings'
 
 class App extends Component {
   render () {
-    const { actions, hierarchy, outlets, mappings } = this.props
-    return hierarchy.render(actions, outlets, mappings)
+    const { actions, hierarchy, outlets, mappings, time } = this.props
+    return hierarchy.render(actions, outlets, mappings, time)
   }
 }
 
@@ -19,14 +19,16 @@ App.propTypes = {
   actions: PropTypes.object.isRequired,
   hierarchy: ImmutablePropTypes.record.isRequired,
   outlets: ImmutablePropTypes.map.isRequired,
-  mappings: ImmutablePropTypes.map.isRequired
+  mappings: ImmutablePropTypes.map.isRequired,
+  time: PropTypes.number.isRequired
 }
 
 function mapStateToProps (state) {
   return {
-    outlets: state.outlets,
-    hierarchy: state.hierarchy,
-    mappings: state.mappings
+    outlets: state.get('outlets'),
+    hierarchy: state.get('hierarchy'),
+    mappings: state.get('mappings'),
+    time: state.get('time')
   }
 }
 

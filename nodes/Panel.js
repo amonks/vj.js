@@ -6,7 +6,7 @@ export default class Panel extends Immutable.Record({
   type: 'Panel',
   children: Immutable.List([])
 }) {
-  render (actions, outlets, mappings) {
-    return renderNode.bind(this, actions, outlets, mappings)()
+  render (actions, outlets, mappings, time) {
+    return renderNode.bind(this, actions, outlets, mappings, time)()
   }
 }

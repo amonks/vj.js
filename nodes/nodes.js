@@ -1,7 +1,9 @@
 import NumberDisplay from './NumberDisplay'
 import NumberInput from './NumberInput'
 import Panel from './Panel'
+import Oscillator from './Oscillator'
+import TimeCounter from './TimeCounter'
 
-const nodes = { NumberDisplay, NumberInput, Panel }
+const nodes = { NumberDisplay, NumberInput, Panel, Oscillator, TimeCounter }
 
 export default nodes

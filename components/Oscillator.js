@@ -1,0 +1,41 @@
+import React, { Component, PropTypes } from 'react'
+
+class Oscillator extends Component {
+  constructor (props, context) {
+    super(props, context)
+  }
+
+  oscillate () {
+    this.handleChange(Math.sin(this.props.time))
+  }
+
+  handleChange (number) {
+    this.props.setOutlet(this.props.numberOutlet, Number(number))
+  }
+
+  deleteNode () {
+    this.props.destroyThis(this.props.id)
+  }
+
+  render () {
+    setTimeout(this.oscillate.bind(this), 0)
+    return (
+      <div className='oscillator panel'>
+        <h3>{'Oscillator'}</h3>
+        <button onClick={this.deleteNode.bind(this)}>{'Delete Oscillator'}</button>
+        <span>{this.props.number}</span>
+      </div>
+    )
+  }
+}
+
+Oscillator.propTypes = {
+  id: PropTypes.string.isRequired,
+  numberOutlet: PropTypes.string.isRequired,
+  setOutlet: PropTypes.func.isRequired,
+  destroyThis: PropTypes.func.isRequired,
+  time: PropTypes.number.isRequired,
+  number: PropTypes.number
+}
+
+export default Oscillator

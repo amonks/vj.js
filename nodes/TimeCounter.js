@@ -1,9 +1,9 @@
 import Immutable from 'immutable'
 import renderNode from './renderNode'
 
-export default class NumberInputNode extends Immutable.Record({
+export default class TimeCounter extends Immutable.Record({
   key: 'uuid',
-  type: 'NumberInput',
+  type: 'TimeCounter',
   outlets: Immutable.Map({
     'number': 'uuid'
   })

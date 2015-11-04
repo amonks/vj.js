@@ -6,10 +6,6 @@ class Panel extends Component {
     super(props, context)
   }
 
-  addNode () {
-    this.props.createChild('NumberDisplay', this.props.id)
-  }
-
   deleteNode () {
     this.props.destroyThis(this.props.id)
   }

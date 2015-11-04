@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import nodes from '../nodes/nodes'
+import UUID from 'node-uuid'
 
 class AddChildSelector extends Component {
   constructor (props, context) {
@@ -7,13 +8,12 @@ class AddChildSelector extends Component {
   }
 
   addNode (event) {
-    this.props.createChild(event.target.value, this.props.id)
+    this.props.createChild(UUID.v4(), event.target.value, this.props.id)
   }
 
   render () {
     let options = []
     for (const node in nodes) {
-      console.log('node:' + node)
       options.push(
         <option value={node} key={node}>{node}</option>
       )

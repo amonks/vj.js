@@ -1,9 +1,9 @@
 import Immutable from 'immutable'
 import renderNode from './renderNode'
 
-export default class NumberInputNode extends Immutable.Record({
+export default class Oscillator extends Immutable.Record({
   key: 'uuid',
-  type: 'NumberInput',
+  type: 'Oscillator',
   outlets: Immutable.Map({
     'number': 'uuid'
   })

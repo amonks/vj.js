@@ -8,7 +8,7 @@ export default class NumberDisplayNode extends Immutable.Record({
     'number': 'uuid'
   })
 }) {
-  render (actions, outlets, mappings) {
-    return renderNode.bind(this, actions, outlets, mappings)()
+  render (actions, outlets, mappings, time) {
+    return renderNode.bind(this, actions, outlets, mappings, time)()
   }
 }
