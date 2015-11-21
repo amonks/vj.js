@@ -5,12 +5,8 @@ class Oscillator extends Component {
     super(props, context)
   }
 
-  oscillate () {
-    this.handleChange(Math.sin(this.props.time))
-  }
-
-  handleChange (number) {
-    this.props.setOutlet(this.props.numberOutlet, Number(number))
+  handleChange () {
+    this.props.setOutlet(this.props.numberOutlet, Math.sin(this.props.time / 100.0))
   }
 
   deleteNode () {
@@ -18,7 +14,7 @@ class Oscillator extends Component {
   }
 
   render () {
-    setTimeout(this.oscillate.bind(this), 0)
+    setTimeout(this.handleChange.bind(this), 10)
     return (
       <div className='oscillator panel'>
         <h3>{'Oscillator'}</h3>
