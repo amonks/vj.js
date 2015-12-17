@@ -2,8 +2,10 @@
   :description "Clovis"
   :dependencies [[org.clojure/clojure "1.7.0"]
                  [org.clojure/clojurescript "1.7.170"]
-                 [org.omcljs/om "1.0.0-alpha22"]
+                 [org.omcljs/om "1.0.0-alpha22" :exclusions [cljsjs/react]]
+                 [cljsjs/material "1.0.6-0"]
                  [devcards "0.2.1-2"]
+                 [cljsjs/google-maps "3.18-1"]
                  #_[figwheel-sidecar "0.5.0-SNAPSHOT" :scope "test"]]
 
   :plugins [[lein-cljsbuild "1.1.1"]
