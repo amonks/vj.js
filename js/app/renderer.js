@@ -1,0 +1,1 @@
+define(["vendor/three","app/3dcontainer"],function(e,t){var n=new e.WebGLRenderer({alpha:!0});n.sortObjects=!1,n.autoClear=!1,t.append(n.domElement);var r=function(){n.setSize(window.innerWidth,window.innerHeight)};return window.addEventListener("resize",r,!1),r(),n});

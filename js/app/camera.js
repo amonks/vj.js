@@ -1,0 +1,1 @@
+define(["vendor/three","app/3dcontainer"],function(e,t){var n=new e.PerspectiveCamera(70,window.innerWidth/window.innerHeight,1,1e3);n.position.z=400;var r=function(){n.aspect=window.innerWidth/window.innerHeight,n.updateProjectionMatrix()};return window.addEventListener("resize",r,!1),r(),n});
