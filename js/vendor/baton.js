@@ -1,1 +1,223 @@
-var Baton=function(){var e={},t=null,n=null,r=null,i=null;e.callback=null;var s=null,o=null;e.mappings=[];var u=!1,a={};e.checkSupport=function(){var e=function(){try{return!!navigator.requestMIDIAccess}catch(e){return!1}}();return e},e.connect=function(e){i=e,navigator.requestMIDIAccess().then(c,h)},e.check=function(){return n===null?!1:!0},e.inputs=function(){return s},e.outputs=function(){return o},e.listen=function(t){e.check()===!0?(n.inputs()[t].onmidimessage=p,console.log("Hooked up input # "+t+": "+n.inputs()[t].name)):console.log("Not connected.")},e.send=function(t,r){if(e.check()===!0){var i=[];switch(r.type){case"noteoff":i.push(127+r.channel);break;default:case"note":i.push(143+r.channel);break;case"polypress":i.push(159+r.channel);break;case"control":i.push(175+r.channel);break;case"program":i.push(191+r.channel);break;case"aftertouch":i.push(207+r.channel);break;case"pitchbend":i.push(223+r.channel)}i.push(r.note),i.push(r.value),n.outputs()[t].send(i),console.log("sending to "+n.outputs()[t].name,i)}else console.log("Not connected.")},e.autoMap=function(e,t){d(e),u=!0,a.name=e,a.fn=t},e.autoMapObj=function(e,t){d(e),u=!0,a.name=e,a.fn=function(e){t.value=e.value}};var f=function(){out=[];for(var e in n.inputs())out.push(n.inputs()[e].name);s=out},l=function(){out=[];for(var e in n.outputs())out.push(n.outputs()[e].name);o=out},c=function(e){console.log("connected!"),n=e,f(),l(),typeof i=="function"&&i()},h=function(e){alert("Failed to initialize MIDI - "+(e.code==1?"permission denied":"error code "+e.code))},p=function(t){var n={};if(t.data.length==3){var r=t.data[0];switch(!0){case r>=128&&r<144:n.type="noteoff",n.channel=r-127;break;case r>=144&&r<160:n.type="note",n.channel=r-143;break;case r>=160&&r<176:n.type="polypress",n.channel=r-159;break;case r>=176&&r<192:n.type="control",n.channel=r-175;break;case r>=192&&r<208:n.type="program",n.channel=r-191;break;case r>=208&&r<224:n.type="aftertouch",n.channel=r-207;break;case r>=224:n.type="pitchbend",n.channel=r-223}n.note=parseInt(t.data[1].toString(10)),n.value=parseInt(t.data[2].toString(10)),u===!0&&(a.midi=n,e.mappings.push(a),a={},u=!1);for(var i in e.mappings)n.channel===e.mappings[i].midi.channel&&n.note===e.mappings[i].midi.note&&n.type===e.mappings[i].midi.type&&e.mappings[i].fn(n);typeof e.callback=="function"&&e.callback(n)}},d=function(t){var n=null;for(var r in e.mappings)e.mappings[r].name===t&&(n=r);n&&e.mappings.pop(n)};if(e.checkSupport()===!0)return e;console.log("Looks like your browser doesn't support WebMIDI."),console.log("If you're in OSX Chrome, enable the chrome://flags/#enable-web-midi flag and relaunch Chrome."),console.log("Otherwise try the Jazz-Soft Jazz plugin."),console.log("More info at http://baton.monks.co")};
+var Baton = function() {
+
+  var API = {};
+
+  var input = null;
+  var midi = null;
+  var inputName = null;
+  var connectCallback = null;
+
+  API.callback = null;
+
+  var inputs = null;
+  var outputs = null;
+
+
+  API.mappings = [];
+  var mapCatch = false;
+  var mappingOnDeck = {};
+
+
+  API.checkSupport = function() {
+    var supportsWebMIDI = ( function () { try { return !! navigator.requestMIDIAccess; } catch( e ) { return false; } } )();
+    return supportsWebMIDI;
+  };
+
+  API.connect = function(callback) {
+    connectCallback = callback;
+    navigator.requestMIDIAccess().then(success, failure);
+  };
+
+  API.check = function() {
+    if ( midi === null ) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  API.inputs = function() {
+    return inputs;
+  };
+
+  API.outputs = function() {
+    return outputs;
+  };
+
+  API.listen = function(i) {
+    if (API.check() === true) {
+      midi.inputs()[i].onmidimessage = handleMIDIMessage;
+      console.log("Hooked up input # " + i + ": " + midi.inputs()[i].name );
+    } else {
+      console.log("Not connected.");
+    }
+  };
+
+  API.send = function(o, d) {
+    if (API.check() === true) {
+      var data = [];
+      switch (d.type) {
+        case "noteoff":
+          data.push(127 + d.channel);
+          break;
+        default:
+        case "note":
+          data.push(143 + d.channel);
+          break;
+        case "polypress":
+          data.push(159 + d.channel);
+          break;
+        case "control":
+          data.push(175 + d.channel);
+          break;
+        case "program":
+          data.push(191 + d.channel);
+          break;
+        case "aftertouch":
+          data.push(207 + d.channel);
+          break;
+        case "pitchbend":
+          data.push(223 + d.channel);
+          break;
+      }
+      data.push(d.note);
+      data.push(d.value);
+      midi.outputs()[o].send(data);
+      console.log("sending to " + midi.outputs()[o].name, data);
+    } else {
+      console.log("Not connected.");
+    }
+  };
+
+  API.autoMap = function(name, fn) {
+    deleteMappingByName(name);
+    mapCatch = true;
+    mappingOnDeck.name = name;
+    mappingOnDeck.fn = fn;
+  };
+
+  API.autoMapObj = function(name, obj) {
+    deleteMappingByName(name);
+    mapCatch = true;
+    mappingOnDeck.name = name;
+    mappingOnDeck.fn = function(m) {
+      obj.value = m.value;
+    };
+  };
+
+  var getInputs = function() {
+    out = [];
+    for (var i in midi.inputs()) {
+      out.push( midi.inputs()[i].name );
+    }
+    inputs = out;
+  };
+
+  var getOutputs = function() {
+    out = [];
+    for (var i in midi.outputs()) {
+      out.push( midi.outputs()[i].name );
+    }
+    outputs = out;
+  };
+
+  var success = function(m) {
+    console.log("connected!");
+    midi = m;
+    getInputs();
+    getOutputs();
+    if (typeof connectCallback === 'function') {
+     connectCallback();
+   }
+  };
+
+  var failure = function(error) {
+    alert("Failed to initialize MIDI - " + ((error.code == 1) ? "permission denied" : ("error code " + error.code)));
+  };
+
+  var handleMIDIMessage = function(ev) {
+    var message = {};
+    if (ev.data.length == 3) {
+      var firstBit = ev.data[0];
+      switch (true) {
+        case (firstBit >= 128 && firstBit < 144):
+          message.type = "noteoff";
+          message.channel = firstBit - 127;
+          break;
+        case (firstBit >= 144 && firstBit < 160):
+          message.type = "note";
+          message.channel = firstBit - 143;
+          break;
+        case (firstBit >= 160 && firstBit < 176):
+          message.type = "polypress";
+          message.channel = firstBit - 159;
+          break;
+        case (firstBit >= 176 && firstBit < 192):
+          message.type = "control";
+          message.channel = firstBit - 175;
+          break;
+        case (firstBit >= 192 && firstBit < 208):
+          message.type = "program";
+          message.channel = firstBit - 191;
+          break;
+        case (firstBit >= 208 && firstBit < 224):
+          message.type = "aftertouch";
+          message.channel = firstBit - 207;
+          break;
+        case (firstBit >= 224):
+          message.type = "pitchbend";
+          message.channel = firstBit - 223;
+          break;
+      }
+      message.note = parseInt(ev.data[1].toString(10));
+      message.value = parseInt(ev.data[2].toString(10));
+      // if waiting for a midi map
+      if (mapCatch === true) {
+        // add this midi message to the mappingOnDeck object
+        mappingOnDeck.midi = message;
+        // then add it to the mappings
+        API.mappings.push(mappingOnDeck);
+        // and reset
+        mappingOnDeck = {};
+        mapCatch = false;
+      }
+      // for each mapping
+      for (var mapping in API.mappings) {
+        // if this midi event has a corresponding mapping
+        if (message.channel === API.mappings[mapping].midi.channel &&
+          message.note === API.mappings[mapping].midi.note &&
+          message.type === API.mappings[mapping].midi.type) {
+          // call the mapped function
+          API.mappings[mapping].fn(message);
+        }
+      }
+      // if there's a callback set
+      if (typeof API.callback === 'function') {
+        // call the callback
+        API.callback(message);
+      }
+    }
+  };
+
+  var deleteMappingByName = function(name) {
+    var deleteID = null;
+    for (var mapping in API.mappings) {
+      if (API.mappings[mapping].name === name) {
+        deleteID = mapping;
+      }
+    }
+    if (deleteID) API.mappings.pop(deleteID);
+  };
+
+
+
+
+  if (API.checkSupport() === true) {
+    return API;
+  } else {
+    console.log("Looks like your browser doesn't support WebMIDI.");
+    console.log("If you're in OSX Chrome, enable the chrome://flags/#enable-web-midi flag and relaunch Chrome.");
+    console.log("Otherwise try the Jazz-Soft Jazz plugin.");
+    console.log("More info at http://baton.monks.co");
+  }
+};
