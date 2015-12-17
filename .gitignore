@@ -9,4 +9,7 @@ pom.xml.asc
 /.nrepl-port
 .hgignore
 .hg/
+/resources/public/js
+*.swp
+*.log
 
